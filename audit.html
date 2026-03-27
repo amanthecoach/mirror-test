@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>The Mirror Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080706;--white:#f0ebe3;--gold:#b8935a;--muted:#6b6560;--line:rgba(184,147,90,0.14);--px:22px}
+body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+.page{display:none;min-height:100vh;padding:40px var(--px)}
+.page.show{display:block}
+
+/* WELCOME */
+.w-logo{font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:10px}
+.w-logo::before,.w-logo::after{content:'';width:20px;height:0.5px;background:var(--gold)}
+.w-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,10vw,56px);font-weight:300;line-height:1.08;text-align:center;margin-bottom:20px}
+.w-h1 em{font-style:italic;color:var(--gold)}
+.w-sub{font-size:15px;color:rgba(240,235,227,0.6);line-height:1.8;text-align:center;margin-bottom:28px}
+.rules{margin-bottom:28px}
+.rule{font-size:13px;color:rgba(240,235,227,0.45);line-height:1.7;padding:8px 0;border-bottom:0.5px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.rule::before{content:'—';color:var(--gold);flex-shrink:0;font-size:11px;margin-top:2px}
+.lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.email-input{width:100%;background:rgba(240,235,227,0.04);border:0.5px solid var(--line);color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;padding:14px;outline:none;margin-bottom:12px;-webkit-appearance:none;border-radius:0}
+.email-input:focus{border-color:rgba(184,147,90,0.5)}
+.start-btn{width:100%;background:var(--gold);color:var(--bg);padding:15px;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;-webkit-appearance:none;border-radius:0}
+.note{font-size:10px;color:rgba(107,101,96,0.5);text-align:center;margin-top:10px;line-height:1.6}
+
+/* QUESTION */
+.q-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.q-brand{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold)}
+.q-count{font-size:11px;color:var(--muted)}
+.progress{height:2px;background:rgba(184,147,90,0.1);margin-bottom:32px}
+.progress-fill{height:100%;background:var(--gold);transition:width 0.4s ease}
+.q-phase{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.q-phase::before{content:'';width:14px;height:0.5px;background:var(--gold)}
+.q-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:rgba(184,147,90,0.12);line-height:1;margin-bottom:10px}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:300;line-height:1.4;margin-bottom:8px}
+.q-hint{font-size:13px;color:rgba(240,235,227,0.3);font-style:italic;line-height:1.6;margin-bottom:20px}
+.q-textarea{width:100%;min-height:160px;background:rgba(240,235,227,0.03);border:0.5px solid var(--line);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.75;padding:14px;outline:none;resize:none;-webkit-appearance:none;border-radius:0}
+.q-textarea:focus{border-color:rgba(184,147,90,0.4)}
+.q-textarea::placeholder{color:rgba(107,101,96,0.4);font-style:italic}
+.q-footer{display:flex;gap:10px;margin-top:16px}
+.back-btn{background:transparent;border:0.5px solid var(--line);color:var(--muted);padding:12px 18px;font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer;letter-spacing:0.08em}
+.next-btn{flex:1;background:var(--gold);color:var(--bg);padding:12px 18px;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;-webkit-appearance:none;border-radius:0}
+
+/* LOADING */
+#page-loading{flex-direction:column;align-items:center;justify-content:center}
+#page-loading.show{display:flex}
+.spinner{width:44px;height:44px;border:1.5px solid rgba(184,147,90,0.15);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:8px;text-align:center}
+.load-sub{font-size:13px;color:var(--muted);text-align:center;line-height:1.7;max-width:260px}
+.stages{margin-top:24px;width:100%;max-width:280px}
+.stage{font-size:12px;color:rgba(107,101,96,0.35);padding:7px 0;display:flex;align-items:center;gap:10px;transition:color 0.4s}
+.stage.on{color:var(--gold)}
+.stage.done{color:rgba(184,147,90,0.4)}
+.stage::before{content:'○';font-size:10px;flex-shrink:0}
+.stage.on::before{content:'◉'}
+.stage.done::before{content:'●'}
+
+/* REPORT */
+#page-report{display:none;padding:0}
+#page-report.show{display:block}
+.r-nav{padding:14px var(--px);border-bottom:0.5px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.r-brand{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold)}
+.r-badge{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);border:0.5px solid rgba(184,147,90,0.3);padding:3px 10px;border-radius:20px}
+.r-hero{padding:28px var(--px);border-bottom:0.5px solid var(--line)}
+.r-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.r-tag::before{content:'';width:14px;height:0.5px;background:var(--gold)}
+.r-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,7vw,36px);font-weight:300;line-height:1.1;margin-bottom:6px}
+.r-title em{color:var(--gold);font-style:italic}
+.r-date{font-size:11px;color:var(--muted)}
+.r-sections{padding:0 var(--px)}
+.r-sec{padding:22px 0;border-bottom:0.5px solid var(--line)}
+.r-sec:last-child{border-bottom:none}
+.r-sec-lbl{font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.r-sec-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--white);margin-bottom:8px}
+.r-sec-body{font-size:14px;color:rgba(240,235,227,0.6);line-height:1.85}
+.r-identity{margin:0 var(--px) 24px;padding:18px;border:0.5px solid rgba(184,147,90,0.3);background:rgba(184,147,90,0.04)}
+.r-id-lbl{font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.r-id-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;font-style:italic;line-height:1.5}
+.r-votes{padding:0 var(--px) 22px}
+.r-votes-lbl{font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.r-vote{padding:12px 0;border-bottom:0.5px solid rgba(240,235,227,0.06);display:flex;gap:12px}
+.r-vote:first-of-type{border-top:0.5px solid rgba(240,235,227,0.06)}
+.r-vote-n{font-family:'Cormorant Garamond',serif;font-size:20px;color:rgba(184,147,90,0.3);font-weight:300;flex-shrink:0}
+.r-vote-t{font-size:13px;color:rgba(240,235,227,0.6);line-height:1.7}
+.r-truth{margin:0 var(--px) 24px;padding:20px;background:rgba(13,11,9,1);border-top:1.5px solid var(--gold)}
+.r-truth-lbl{font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.r-truth-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;line-height:1.6}
+.upsell{margin:0 var(--px) 28px;padding:22px;border:0.5px solid rgba(184,147,90,0.2);background:rgba(184,147,90,0.03)}
+.up-tag{font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.up-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;margin-bottom:8px;line-height:1.3}
+.up-body{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:14px}
+.up-price{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--gold);font-weight:300;margin-bottom:14px}
+.up-btn{width:100%;background:var(--gold);color:var(--bg);padding:13px 18px;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;border-radius:0}
+
+/* ERROR */
+#page-error{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#page-error.show{display:flex}
+.err-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;margin-bottom:8px}
+.err-body{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.7}
+.retry-btn{background:var(--gold);color:var(--bg);padding:12px 28px;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<div class="page show" id="page-welcome">
+  <div class="w-logo">The Mirror Test</div>
+  <h1 class="w-h1">The next 15 minutes will show you <em>who you actually are.</em></h1>
+  <p class="w-sub">Answer 12 questions honestly. You will receive a personal psychological report built entirely from your answers.</p>
+  <div class="rules">
+    <div class="rule">There are no right or wrong answers. Only honest ones.</div>
+    <div class="rule">The more honest you are, the more accurate your report.</div>
+    <div class="rule">Your answers are private and used only to generate your report.</div>
+    <div class="rule">Take your time. This is not a quiz.</div>
+  </div>
+  <div class="lbl">Your email — to receive your report</div>
+  <input class="email-input" type="email" id="email" placeholder="yourname@email.com">
+  <button class="start-btn" onclick="startTest()">Begin The Mirror Test <span>→</span></button>
+  <p class="note">Your report will be shown on screen immediately and also sent to your email.</p>
+</div>
+
+<!-- QUESTION -->
+<div class="page" id="page-question">
+  <div class="q-top">
+    <div class="q-brand">The Mirror Test</div>
+    <div class="q-count" id="q-count">1 of 12</div>
+  </div>
+  <div class="progress"><div class="progress-fill" id="q-prog" style="width:8.33%"></div></div>
+  <div class="q-phase" id="q-phase">Phase 1</div>
+  <div class="q-num" id="q-num">01</div>
+  <div class="q-text" id="q-text"></div>
+  <div class="q-hint" id="q-hint"></div>
+  <textarea class="q-textarea" id="q-ans" placeholder="Write honestly. The first thing that comes to mind is usually the truest."></textarea>
+  <div class="q-footer">
+    <button class="back-btn" id="back-btn" onclick="prevQ()">← Back</button>
+    <button class="next-btn" id="next-btn" onclick="nextQ()">Next <span>→</span></button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="page" id="page-loading">
+  <div class="spinner"></div>
+  <div class="load-title">Building your report.</div>
+  <div class="load-sub">This takes about 30 seconds. Every sentence is written from your specific answers.</div>
+  <div class="stages">
+    <div class="stage on" id="st0">Reading your answers</div>
+    <div class="stage" id="st1">Identifying your root pattern</div>
+    <div class="stage" id="st2">Finding the hidden fear</div>
+    <div class="stage" id="st3">Writing your identity statement</div>
+    <div class="stage" id="st4">Crafting your one truth</div>
+    <div class="stage" id="st5">Finalising your report</div>
+  </div>
+</div>
+
+<!-- REPORT -->
+<div id="page-report">
+  <div class="r-nav">
+    <div class="r-brand">The Mirror Test</div>
+    <div class="r-badge">Personal Report</div>
+  </div>
+  <div class="r-hero">
+    <div class="r-tag">Your Mirror Test Report</div>
+    <div class="r-title">Your <em>reflection.</em></div>
+    <div class="r-date" id="r-date"></div>
+  </div>
+  <div class="r-sections" id="r-sections"></div>
+  <div class="r-identity" id="r-identity" style="display:none">
+    <div class="r-id-lbl">Your identity statement</div>
+    <div class="r-id-text" id="r-id-text"></div>
+  </div>
+  <div class="r-votes" id="r-votes" style="display:none">
+    <div class="r-votes-lbl">3 daily identity votes</div>
+  </div>
+  <div class="r-truth" id="r-truth" style="display:none">
+    <div class="r-truth-lbl">The one truth</div>
+    <div class="r-truth-text" id="r-truth-text"></div>
+  </div>
+  <div class="upsell">
+    <div class="up-tag">Your next step</div>
+    <div class="up-title">The 30-Day Mirror Protocol</div>
+    <div class="up-body">You have seen what has been holding you back. This protocol gives you the daily system to replace it — identity practices, guided journaling, and video modules built from your specific report.</div>
+    <div class="up-price">₹499</div>
+    <button class="up-btn" onclick="window.location.href='https://rzp.io/l/YOUR_UPSELL_LINK'">Get The 30-Day Protocol <span>→</span></button>
+  </div>
+</div>
+
+<!-- ERROR -->
+<div class="page" id="page-error">
+  <div class="err-title">Something went wrong.</div>
+  <div class="err-body" id="err-body">There was an issue generating your report. Please try again.</div>
+  <button class="retry-btn" onclick="generate()">Try again</button>
+</div>
+
+<script>
+const QS = [
+  {p:'Phase 1 — The Honest Audit', t:'If a stranger followed you silently for one week and watched how you treat your body — what would they honestly say about you?', h:'Not what you wish they would say. What they would actually observe.'},
+  {p:'Phase 1 — The Honest Audit', t:'Think about the last time you quit a fitness routine or health goal. Walk me through the 48 hours before you stopped.', h:'The exact moment, the thought you had, what you told yourself.'},
+  {p:'Phase 1 — The Honest Audit', t:'What does the private version of you do — the one nobody sees — that the public version would be embarrassed to admit?', h:'This is about your relationship with your body and health specifically.'},
+  {p:'Phase 2 — The Root Cause', t:'Describe the earliest memory you have of feeling like fitness or your body was something that was not for people like you.', h:'It might be something someone said, a moment in school, something you absorbed at home.'},
+  {p:'Phase 2 — The Root Cause', t:'If you became completely fit and healthy — what would you actually lose? Think about your relationships, your social life, your identity.', h:'Be honest. There is always something. What is yours?'},
+  {p:'Phase 2 — The Root Cause', t:'What have you been tolerating about your body or health for so long that you have stopped noticing it?', h:'The thing that has become background noise. The thing you have made peace with that you should not have.'},
+  {p:'Phase 3 — The Environment Audit', t:'What messages about health, fitness, or bodies did you absorb from your parents before you were 10 years old?', h:'What did they do? What did they say? What did their behaviour teach you without words?'},
+  {p:'Phase 3 — The Environment Audit', t:'Name the person in your current life who — without being cruel — makes it hardest for you to stay consistent with your health.', h:'Could be a partner, friend, family member, or colleague.'},
+  {p:'Phase 3 — The Environment Audit', t:'Think of a time in your life when you were most consistent with your health. What did you believe about yourself then that you do not believe now?', h:'What identity were you living in during that period?'},
+  {p:'Phase 4 — The Identity Vision', t:'Write two sentences: first, what you hope people say at your funeral about how you lived in your body. Second, what they would honestly say if you died today.', h:'The gap between these two sentences is what this report is trying to close.'},
+  {p:'Phase 4 — The Identity Vision', t:'Name 3 things your future fully-healthy self would never do. Now honestly answer: did you do any of them in the last 7 days?', h:'Be specific. Not just eat badly — what exactly.'},
+  {p:'Phase 4 — The Identity Vision', t:'Complete this sentence honestly, without thinking too long: The real reason I keep stopping is not ___, it is ___.', h:'The first thing that comes to mind is almost always the truest. Do not edit it.'},
+];
+
+let cur = 0;
+let ans = new Array(12).fill('');
+let email = '';
+let stTimer = null;
+
+function go(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('show'));
+  document.getElementById('page-report').style.display = 'none';
+  if (id === 'report') {
+    document.getElementById('page-report').style.display = 'block';
+  } else {
+    document.getElementById('page-' + id).classList.add('show');
+  }
+  window.scrollTo(0, 0);
+}
+
+function startTest() {
+  const v = document.getElementById('email').value.trim();
+  if (!v || !v.includes('@')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  email = v;
+  cur = 0;
+  loadQ();
+  go('question');
+}
+
+function loadQ() {
+  const q = QS[cur];
+  document.getElementById('q-phase').textContent = q.p;
+  document.getElementById('q-num').textContent = String(cur + 1).padStart(2, '0');
+  document.getElementById('q-text').textContent = q.t;
+  document.getElementById('q-hint').textContent = q.h;
+  document.getElementById('q-ans').value = ans[cur];
+  document.getElementById('q-count').textContent = (cur + 1) + ' of 12';
+  document.getElementById('q-prog').style.width = ((cur + 1) / 12 * 100) + '%';
+  document.getElementById('back-btn').style.visibility = cur === 0 ? 'hidden' : 'visible';
+  document.getElementById('next-btn').innerHTML = cur === 11 ? 'Generate My Report <span>→</span>' : 'Next <span>→</span>';
+}
+
+function nextQ() {
+  ans[cur] = document.getElementById('q-ans').value.trim();
+  if (cur < 11) {
+    cur++;
+    loadQ();
+    window.scrollTo(0, 0);
+  } else {
+    generate();
+  }
+}
+
+function prevQ() {
+  ans[cur] = document.getElementById('q-ans').value.trim();
+  if (cur > 0) { cur--; loadQ(); window.scrollTo(0, 0); }
+}
+
+function startStages() {
+  const els = document.querySelectorAll('.stage');
+  let i = 0;
+  els[0].className = 'stage on';
+  stTimer = setInterval(() => {
+    if (i < els.length - 1) {
+      els[i].className = 'stage done';
+      i++;
+      els[i].className = 'stage on';
+    }
+  }, 5000);
+}
+
+async function generate() {
+  go('loading');
+  startStages();
+
+  const answersText = QS.map((q, i) =>
+    'Q' + (i+1) + ' [' + q.p + ']: ' + q.t + '\nAnswer: ' + (ans[i] || '(skipped)')
+  ).join('\n\n');
+
+  try {
+    const res = await fetch('/.netlify/functions/generate-report', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({answers: ans})
+    });
+
+    clearInterval(stTimer);
+
+    if (!res.ok) throw new Error('Status ' + res.status);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    renderReport(data.report);
+    go('report');
+
+  } catch(e) {
+    clearInterval(stTimer);
+    document.getElementById('err-body').textContent = 'Error: ' + e.message + '. Please try again.';
+    go('error');
+  }
+}
+
+function extract(text, key) {
+  const keys = ['THE MIRROR','THE WOUND','THE HIDDEN FEAR','WHAT YOUR ENVIRONMENT DID','YOUR IDENTITY STATEMENT','3 DAILY IDENTITY VOTES','THE ONE TRUTH'];
+  const idx = text.indexOf(key + ':');
+  if (idx === -1) return '';
+  const start = idx + key.length + 1;
+  let end = text.length;
+  keys.forEach(k => {
+    if (k === key) return;
+    const ni = text.indexOf(k + ':', start);
+    if (ni > start && ni < end) end = ni;
+  });
+  return text.slice(start, end).trim();
+}
+
+function renderReport(text) {
+  document.getElementById('r-date').textContent = new Date().toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'});
+
+  const secs = [
+    {key:'THE MIRROR', lbl:'Section 01', title:'The Mirror'},
+    {key:'THE WOUND', lbl:'Section 02', title:'The Wound'},
+    {key:'THE HIDDEN FEAR', lbl:'Section 03', title:'The Hidden Fear'},
+    {key:'WHAT YOUR ENVIRONMENT DID', lbl:'Section 04', title:'What Your Environment Did'},
+  ];
+
+  let html = '';
+  secs.forEach(s => {
+    const c = extract(text, s.key);
+    if (c) html += '<div class="r-sec"><div class="r-sec-lbl">' + s.lbl + '</div><div class="r-sec-title">' + s.title + '</div><div class="r-sec-body">' + c + '</div></div>';
+  });
+  document.getElementById('r-sections').innerHTML = html;
+
+  const id = extract(text, 'YOUR IDENTITY STATEMENT');
+  if (id) {
+    document.getElementById('r-id-text').textContent = id;
+    document.getElementById('r-identity').style.display = 'block';
+  }
+
+  const votes = extract(text, '3 DAILY IDENTITY VOTES');
+  if (votes) {
+    const vel = document.getElementById('r-votes');
+    vel.style.display = 'block';
+    const lines = votes.split('\n').filter(l => l.trim() && /^\d\./.test(l.trim()));
+    let vh = '<div class="r-votes-lbl">3 daily identity votes</div>';
+    lines.forEach((l, i) => {
+      vh += '<div class="r-vote"><div class="r-vote-n">0' + (i+1) + '</div><div class="r-vote-t">' + l.replace(/^\d\.\s*/, '') + '</div></div>';
+    });
+    vel.innerHTML = vh;
+  }
+
+  const truth = extract(text, 'THE ONE TRUTH');
+  if (truth) {
+    document.getElementById('r-truth-text').textContent = truth;
+    document.getElementById('r-truth').style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>
