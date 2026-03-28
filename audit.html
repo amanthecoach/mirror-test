@@ -303,6 +303,10 @@ async function generate() {
     const data = await res.json();
     if (data.error) throw new Error(data.error);
 
+    // Debug: show raw report in console
+    console.log('RAW REPORT:', data.report);
+    // Show first 200 chars on screen temporarily  
+    document.getElementById('r-sections').innerHTML = '<div style="color:#b8935a;font-size:12px;padding:10px;word-break:break-all">' + (data.report || 'EMPTY').substring(0, 300) + '</div>';
     renderReport(data.report);
     go('report');
 
