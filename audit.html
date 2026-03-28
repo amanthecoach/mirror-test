@@ -158,7 +158,7 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;fo
 </div>
 
 <!-- REPORT -->
-<div id="page-report">
+<div id="page-report" style="display:none">
   <div class="r-nav">
     <div class="r-brand">The Mirror Test</div>
     <div class="r-badge">Personal Report</div>
@@ -315,14 +315,24 @@ async function generate() {
 
 function extract(text, key) {
   const keys = ['THE MIRROR','THE WOUND','THE HIDDEN FEAR','WHAT YOUR ENVIRONMENT DID','YOUR IDENTITY STATEMENT','3 DAILY IDENTITY VOTES','THE ONE TRUTH'];
-  const idx = text.indexOf(key + ':');
+  // Handle plain "KEY:" and markdown "**KEY:**" and "## KEY:" formats
+  const patterns = [key + ':', '**' + key + ':**', '**' + key + '**:', '## ' + key + ':'];
+  let idx = -1;
+  let matchedPattern = key + ':';
+  for (const p of patterns) {
+    const i = text.indexOf(p);
+    if (i !== -1) { idx = i; matchedPattern = p; break; }
+  }
   if (idx === -1) return '';
-  const start = idx + key.length + 1;
+  const start = idx + matchedPattern.length;
   let end = text.length;
   keys.forEach(k => {
     if (k === key) return;
-    const ni = text.indexOf(k + ':', start);
-    if (ni > start && ni < end) end = ni;
+    const allP = [k + ':', '**' + k + ':**', '**' + k + '**:', '## ' + k + ':'];
+    allP.forEach(p => {
+      const ni = text.indexOf(p, start);
+      if (ni > start && ni < end) end = ni;
+    });
   });
   return text.slice(start, end).trim();
 }
