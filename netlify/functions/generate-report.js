@@ -59,7 +59,7 @@ Write the full report now. Be specific. Be honest. Be compassionate. Do not be g
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1500,
+        max_tokens: 1000,
         messages: [{ role: 'user', content: prompt }]
       })
     });
