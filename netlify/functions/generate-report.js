@@ -48,8 +48,7 @@ Write 4-5 sentences. This is the most important thing they need to hear. Not a m
 Here are their answers to the 12 questions:
 ${JSON.stringify(answers, null, 2)}
 
-Write the full report now. Be specific. Be honest. Be compassionate. Do not be generic. Every sentence should feel like it was written only for this person.`;
-
+Write the full report now. Be specific. Be honest. Be compassionate. Do not be generic. Every sentence should feel like it was written only for this person. IMPORTANT: Do not assume the person's gender. Use "you" and "your" only — never he, she, him, her, his, hers, woman, man, boy, or girl.
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
