@@ -59,7 +59,7 @@ Write the full report now. Be specific. Be honest. Be compassionate. Do not be g
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1000,
+        max_tokens: 1200,
         messages: [{ role: 'user', content: prompt }]
       })
     });
