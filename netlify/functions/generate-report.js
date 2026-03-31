@@ -69,7 +69,7 @@ Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
     }
 
     const data = JSON.parse(responseText);
-    const reportText = data.content[0].text;
+    const reportText = data.content[0].text.replace(/\*\*/g, '').replace(/\*/g, '');
 
     return {
       statusCode: 200,
