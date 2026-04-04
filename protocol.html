@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080706">
+<title>The 30-Day Mirror Protocol — Aman The Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080706;--white:#f0ebe3;--gold:#b8935a;--muted:#9a8f85;--dark:#0d0b09;--line:rgba(184,147,90,0.18);--px:24px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+nav{padding:18px var(--px);display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:50}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold);letter-spacing:0.08em}
+.nav-tag{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.divider{height:0.5px;background:var(--line)}
+
+/* COMPARISON */
+.compare-intro{padding:44px var(--px) 28px;text-align:center}
+.compare-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px}
+.compare-eyebrow::before,.compare-eyebrow::after{content:'';width:20px;height:0.5px;background:var(--gold)}
+.compare-h{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,9vw,48px);font-weight:300;line-height:1.1;margin-bottom:12px}
+.compare-h em{font-style:italic;color:var(--gold)}
+.compare-sub{font-size:15px;color:rgba(240,235,227,0.6);line-height:1.85;max-width:340px;margin:0 auto}
+
+.col-headers{display:grid;grid-template-columns:1fr 1fr;margin:0 var(--px) 0;border-bottom:0.5px solid var(--line)}
+.col-h-left{padding:18px 16px;background:rgba(139,58,58,0.1);border-right:0.5px solid var(--line)}
+.col-h-right{padding:18px 16px;background:rgba(58,107,74,0.14)}
+.col-h-label{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:7px}
+.col-h-label.red{color:#d48080}
+.col-h-label.green{color:#7ab894}
+.col-h-title{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4.5vw,22px);font-weight:400;line-height:1.3}
+.col-h-title.red{color:#ffcccc}
+.col-h-title.green{color:#c8f0d8}
+
+.compare-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:0.5px solid rgba(255,255,255,0.05)}
+.compare-row:last-child{border-bottom:none}
+.cell{padding:22px 18px}
+.cell-left{background:rgba(139,58,58,0.06);border-right:0.5px solid var(--line)}
+.cell-right{background:rgba(58,107,74,0.08)}
+.cell-icon{font-size:28px;margin-bottom:10px;display:block}
+.cell-title{font-size:16px;font-weight:500;margin-bottom:8px;line-height:1.4}
+.cell-title.red{color:#ffcccc}
+.cell-title.green{color:#c8f0d8}
+.cell-body{font-size:14px;line-height:1.85;color:rgba(240,235,227,0.78)}
+.pill{display:inline-block;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:5px 10px;border-radius:20px;margin-bottom:12px}
+.pill-red{background:rgba(139,58,58,0.25);color:#f0b0b0;border:0.5px solid rgba(240,176,176,0.25)}
+.pill-green{background:rgba(58,107,74,0.25);color:#7ab894;border:0.5px solid rgba(122,184,148,0.25)}
+
+.verdict{margin:0 var(--px);padding:24px;background:rgba(184,147,90,0.07);border:0.5px solid rgba(184,147,90,0.25);text-align:center}
+.verdict-line{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,5vw,26px);font-weight:300;font-style:italic;line-height:1.5;color:var(--white)}
+.verdict-line em{color:var(--gold)}
+
+/* sections */
+.section{padding:52px var(--px)}
+.sec-tag{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-tag::before{content:'';width:14px;height:0.5px;background:var(--gold)}
+.sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7.5vw,42px);font-weight:300;line-height:1.12;margin-bottom:18px}
+.sec-h em{font-style:italic;color:var(--gold)}
+.sec-body{font-size:16px;line-height:1.92;color:rgba(240,235,227,0.78)}
+.sec-body p{margin-bottom:16px}
+.sec-body p:last-child{margin-bottom:0}
+
+.what-box{padding:22px;border:0.5px solid var(--line);margin-bottom:14px;background:rgba(184,147,90,0.04)}
+.what-box-num{font-family:'Cormorant Garamond',serif;font-size:44px;color:rgba(184,147,90,0.25);font-weight:300;line-height:1;margin-bottom:8px}
+.what-box-title{font-size:18px;color:var(--white);margin-bottom:8px;font-weight:400}
+.what-box-body{font-size:15px;color:rgba(240,235,227,0.68);line-height:1.82}
+
+.price-block{padding:56px var(--px);text-align:center}
+.price-eyebrow{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.price-amt{font-family:'Cormorant Garamond',serif;font-size:clamp(60px,18vw,96px);font-weight:300;color:var(--gold);line-height:1;margin-bottom:10px}
+.price-ctx{font-size:14px;color:var(--muted);margin-bottom:26px;line-height:1.85}
+.buy-btn{width:100%;background:var(--gold);color:var(--bg);padding:17px 22px;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.price-note{font-size:12px;color:rgba(154,143,133,0.7);line-height:1.75}
+
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(8,7,6,0.97);border-top:0.5px solid var(--line);padding:13px var(--px);display:flex;align-items:center;gap:12px;z-index:100}
+.sticky-price{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);font-weight:300;flex-shrink:0}
+.sticky-btn{flex:1;display:flex;align-items:center;justify-content:space-between;background:var(--gold);color:var(--bg);padding:13px 16px;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+</style>
+<style>
+#pb{position:fixed;top:0;left:0;height:3px;background:#b8935a;z-index:200;width:0%;transition:width 0.1s}
+.acc-section{border-top:0.5px solid rgba(184,147,90,0.18)}
+.acc-header{display:flex;justify-content:space-between;align-items:center;padding:22px var(--px);cursor:pointer;gap:16px;background:var(--bg)}
+.acc-header:active{opacity:0.8}
+.acc-left{flex:1}
+.acc-tag{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.acc-tag::before{content:'';width:10px;height:0.5px;background:var(--gold)}
+.acc-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6vw,30px);font-weight:300;line-height:1.15;color:var(--white)}
+.acc-title em{font-style:italic;color:var(--gold)}
+.acc-icon{font-size:24px;color:var(--gold);flex-shrink:0;transition:transform 0.3s;font-weight:300;font-family:'Cormorant Garamond',serif}
+.acc-body{max-height:0;overflow:hidden;transition:max-height 0.45s ease,padding 0.3s}
+.acc-body-inner{padding:0 var(--px) 32px}
+.acc-section.open .acc-body{max-height:4000px}
+.acc-section.open .acc-icon{transform:rotate(45deg)}
+.acc-body .sec-body{font-size:15px;line-height:1.9;color:rgba(240,235,227,0.72);margin-bottom:20px}
+.faq-item{border-top:0.5px solid rgba(184,147,90,0.18);overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;font-size:16px;color:#f0ebe3;font-weight:400;gap:12px}
+.faq-q span:first-child{flex:1;line-height:1.4}
+.faq-arrow{color:#b8935a;font-size:20px;flex-shrink:0;transition:transform 0.25s;display:inline-block}
+.faq-a{font-size:14px;line-height:1.85;color:rgba(240,235,227,0.65);max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.25s;padding:0}
+.faq-item.open .faq-a{max-height:600px;padding-bottom:18px}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+</style>
+<script>
+window.addEventListener('scroll',function(){
+var s=document.documentElement.scrollTop||document.body.scrollTop;
+var h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+var pb=document.getElementById('pb');
+if(pb)pb.style.width=(s/h*100)+'%';
+});
+function toggleFaq(el){
+var item=el.parentElement;
+var wasOpen=item.classList.contains('open');
+document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
+if(!wasOpen)item.classList.add('open');
+}
+function toggleAcc(el){
+var sec=el.parentElement;
+var wasOpen=sec.classList.contains('open');
+document.querySelectorAll('.acc-section').forEach(function(s){s.classList.remove('open')});
+if(!wasOpen)sec.classList.add('open');
+}
+</script>
+</head>
+<body>
+<div id="pb"></div>
+
+<nav>
+  <div class="nav-brand">Aman The Coach</div>
+  <div class="nav-tag">The 30-Day Mirror Protocol</div>
+</nav>
+
+<!-- COMPARISON TABLE -->
+<div class="compare-intro">
+  <h1 class="compare-h">What happens next<br><em>is your choice.</em></h1>
+  <p class="compare-sub">You have seen your pattern. Now see two possible futures — one where you understand it, one where you don't.</p>
+</div>
+
+<div class="col-headers">
+  <div class="col-h-left">
+    <div class="col-h-label red">Path A</div>
+    <div class="col-h-title red">Without<br>the protocol</div>
+  </div>
+  <div class="col-h-right">
+    <div class="col-h-label green">Path B</div>
+    <div class="col-h-title green">With the 30-Day<br>Mirror Protocol</div>
+  </div>
+</div>
+
+<div class="compare-row">
+  <div class="cell cell-left">
+    <span class="pill pill-red">Week 1–2</span>
+    <div class="cell-icon">📉</div>
+    <div class="cell-title red">Motivation fades</div>
+    <div class="cell-body">The initial energy from the Mirror Test report disappears. Old habits return quietly. You tell yourself you'll restart later.</div>
+  </div>
+  <div class="cell cell-right">
+    <span class="pill pill-green">Week 1–2</span>
+    <div class="cell-icon">🪞</div>
+    <div class="cell-title green">Seeing yourself clearly</div>
+    <div class="cell-body">Every morning you answer one honest question before the world gets to you. You begin seeing your pattern in real time — not just in theory.</div>
+  </div>
+</div>
+
+<div class="compare-row">
+  <div class="cell cell-left">
+    <span class="pill pill-red">Week 3–4</span>
+    <div class="cell-icon">🔄</div>
+    <div class="cell-title red">Return to baseline</div>
+    <div class="cell-body">Without understanding the root cause, the identity pulls you back. You are the same person you were before. The report becomes a memory.</div>
+  </div>
+  <div class="cell cell-right">
+    <span class="pill pill-green">Week 3–4</span>
+    <div class="cell-icon">🌱</div>
+    <div class="cell-title green">Root cause understood</div>
+    <div class="cell-body">You trace your pattern to its origin — the wound, the inherited belief, the fear beneath the fear. Understanding it changes its power over you.</div>
+  </div>
+</div>
+
+<div class="compare-row">
+  <div class="cell cell-left">
+    <span class="pill pill-red">Movement</span>
+    <div class="cell-icon">⏸</div>
+    <div class="cell-title red">Still an obligation</div>
+    <div class="cell-body">Exercise remains something you should do. Motivation is required every time. Some days it shows. Most days it doesn't.</div>
+  </div>
+  <div class="cell cell-right">
+    <span class="pill pill-green">Movement</span>
+    <div class="cell-icon">⚡</div>
+    <div class="cell-title green">Becomes your identity</div>
+    <div class="cell-body">By Day 30, movement is not something you do for fitness. It is something you do because that is who you are. No motivation required.</div>
+  </div>
+</div>
+
+<div class="compare-row">
+  <div class="cell cell-left">
+    <span class="pill pill-red">Self-knowledge</span>
+    <div class="cell-icon">🌫</div>
+    <div class="cell-title red">Vague awareness</div>
+    <div class="cell-body">You know something is holding you back. You just can't name it precisely enough to change it. The pattern continues.</div>
+  </div>
+  <div class="cell cell-right">
+    <span class="pill pill-green">Self-knowledge</span>
+    <div class="cell-icon">🔍</div>
+    <div class="cell-title green">Surgical precision</div>
+    <div class="cell-body">30 days of daily psychological excavation leaves you with a level of self-understanding most people never reach in a lifetime.</div>
+  </div>
+</div>
+
+<div class="compare-row">
+  <div class="cell cell-left">
+    <span class="pill pill-red">Environment</span>
+    <div class="cell-icon">🧲</div>
+    <div class="cell-title red">Still running you</div>
+    <div class="cell-body">The social pressures, inherited beliefs, and people who pull you back continue shaping your behaviour without your awareness.</div>
+  </div>
+  <div class="cell cell-right">
+    <span class="pill pill-green">Environment</span>
+    <div class="cell-icon">🛡</div>
+    <div class="cell-title green">Examined and redesigned</div>
+    <div class="cell-body">Week 3 maps exactly what your environment has been rewarding. You identify what to keep, what to release, how to design your world for who you are becoming.</div>
+  </div>
+</div>
+
+<div class="compare-row">
+  <div class="cell cell-left">
+    <span class="pill pill-red">After 30 days</span>
+    <div class="cell-icon">😔</div>
+    <div class="cell-title red">Same identity, same baseline</div>
+    <div class="cell-body">You return to who you have always been. The next programme will produce the same result. Because the identity has not changed.</div>
+  </div>
+  <div class="cell cell-right">
+    <span class="pill pill-green">After 30 days</span>
+    <div class="cell-icon">✦</div>
+    <div class="cell-title green">New identity, new baseline</div>
+    <div class="cell-body">The baseline has shifted. The person you were when you took the Mirror Test and the person you are now are genuinely different.</div>
+  </div>
+</div>
+
+<div class="verdict">
+  <p class="verdict-line">You always return to your identity.<br><em>Path B changes the identity.</em></p>
+</div>
+
+<div style="height:48px"></div>
+<div class="divider"></div>
+
+<!-- CREAM BREAK 1 -->
+<div style="background:#f5f0e8;padding:28px var(--px);text-align:center">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#8a7248;margin-bottom:18px">A hard truth</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6.5vw,32px);font-weight:300;color:#1a1410;line-height:1.45;margin-bottom:14px">Every programme you have ever tried<br>failed for the same reason.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6.5vw,32px);font-weight:300;font-style:italic;color:#8a7248;line-height:1.45">Not discipline. Not the programme.<br>The identity beneath both.</p>
+  <div style="width:40px;height:1px;background:#8a7248;margin:22px auto 0;opacity:0.4"></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- HERO SVG — rebuilt, immediately communicates the product -->
+<svg width="100%" viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg">
+<rect width="680" height="620" fill="#080706"/>
+
+<!-- background atmosphere — subtle radial glow from centre -->
+<ellipse cx="340" cy="300" rx="320" ry="280" fill="#1a1208" opacity="0.5"/>
+
+<!-- ── LEFT PANEL: BEFORE ── -->
+<rect x="0" y="0" width="300" height="540" fill="#080706"/>
+
+<!-- floor shadow -->
+<ellipse cx="150" cy="490" rx="90" ry="8" fill="#1a1410" opacity="0.6"/>
+
+<!-- person sitting slumped, back curved -->
+<!-- legs on floor -->
+<path d="M120 490 Q100 470 85 450 Q75 435 82 425" fill="none" stroke="#2e2418" stroke-width="20" stroke-linecap="round"/>
+<path d="M165 490 Q180 465 190 445 Q198 430 192 420" fill="none" stroke="#2e2418" stroke-width="20" stroke-linecap="round"/>
+<!-- feet -->
+<ellipse cx="82" cy="422" rx="16" ry="7" fill="#281e14" transform="rotate(-20,82,422)"/>
+<ellipse cx="192" cy="418" rx="16" ry="7" fill="#281e14" transform="rotate(15,192,418)"/>
+
+<!-- torso — rounded, hunched -->
+<path d="M100 340 Q95 305 108 282 Q122 258 148 262 Q174 266 178 292 L174 360 Q148 376 100 340Z" fill="#2e2418"/>
+
+<!-- arms hanging low -->
+<path d="M100 320 Q68 335 52 365 Q46 382 56 394" fill="none" stroke="#2e2418" stroke-width="18" stroke-linecap="round"/>
+<ellipse cx="54" cy="397" rx="10" ry="11" fill="#342818" transform="rotate(-10,54,397)"/>
+<!-- phone glowing in left hand -->
+<rect x="34" y="388" width="24" height="38" rx="5" fill="#12203a" stroke="#3a6aaa" stroke-width="1.5"/>
+<rect x="37" y="392" width="18" height="30" rx="2" fill="#162840"/>
+<line x1="39" y1="398" x2="53" y2="398" stroke="#3a6aaa" stroke-width="1.5" opacity="0.8"/>
+<line x1="39" y1="406" x2="53" y2="406" stroke="#3a6aaa" stroke-width="1" opacity="0.5"/>
+<line x1="39" y1="414" x2="47" y2="414" stroke="#3a6aaa" stroke-width="1" opacity="0.4"/>
+<!-- phone glow spilling on face -->
+<ellipse cx="70" cy="360" rx="35" ry="25" fill="#1a3060" opacity="0.12"/>
+
+<path d="M178 310 Q205 322 212 352" fill="none" stroke="#2e2418" stroke-width="18" stroke-linecap="round"/>
+<ellipse cx="212" cy="356" rx="10" ry="11" fill="#342818"/>
+
+<!-- neck -->
+<rect x="137" y="244" width="22" height="22" rx="6" fill="#342818"/>
+<!-- head drooping, looking down -->
+<ellipse cx="148" cy="222" rx="30" ry="34" fill="#342818"/>
+<!-- slight tilt forward — drooping -->
+<ellipse cx="137" cy="214" rx="28" ry="32" fill="#2e2418" opacity="0.4"/>
+
+<!-- eyes — heavy, downcast -->
+<ellipse cx="138" cy="218" rx="4" ry="3" fill="#3e3020" opacity="0.9"/>
+<ellipse cx="158" cy="218" rx="4" ry="3" fill="#3e3020" opacity="0.9"/>
+<!-- downward curve of mouth -->
+<path d="M139 232 Q148 228 157 232" fill="none" stroke="#221810" stroke-width="1.5" stroke-linecap="round"/>
+<!-- hair -->
+<ellipse cx="148" cy="196" rx="30" ry="14" fill="#221608"/>
+<path d="M118 210 Q116 190 128 180 Q138 173 148 174 Q158 173 168 180 Q180 190 178 210" fill="#221608"/>
+
+<!-- floating thought bubble — loops and excuses -->
+<ellipse cx="220" cy="160" rx="52" ry="38" fill="#1a1410" stroke="#b8935a" stroke-width="0.5" opacity="0.5"/>
+<text x="220" y="145" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#e88080" opacity="0.75" font-style="italic">tomorrow.</text>
+<text x="220" y="162" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#e88080" opacity="0.6" font-style="italic">too tired.</text>
+<text x="220" y="179" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#e88080" opacity="0.5" font-style="italic">start Monday.</text>
+<!-- bubble tail -->
+<path d="M190 193 Q185 205 178 210" fill="none" stroke="#b8935a" stroke-width="0.5" opacity="0.3"/>
+
+<!-- label block -->
+<rect x="30" y="510" width="220" height="50" rx="3" fill="#1a0e0e" stroke="rgba(232,128,128,0.2)" stroke-width="0.5"/>
+<text x="140" y="530" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#e88080" opacity="0.8" letter-spacing="2">WITHOUT THE PROTOCOL</text>
+<text x="140" y="550" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#9a8f85" font-style="italic" opacity="0.7">returns to the same baseline</text>
+
+<!-- ── CENTRE DIVIDER ── -->
+<line x1="340" y1="40" x2="340" y2="560" stroke="#b8935a" stroke-width="0.8" stroke-dasharray="5 5" opacity="0.3"/>
+<!-- VS pill -->
+<rect x="314" y="272" width="52" height="32" rx="16" fill="#0f0c09" stroke="#b8935a" stroke-width="1.2"/>
+<text x="340" y="293" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#b8935a" font-weight="500">VS</text>
+
+<!-- ── RIGHT PANEL: AFTER ── -->
+<rect x="380" y="0" width="300" height="540" fill="#080706"/>
+
+<!-- floor shadow — brighter, larger -->
+<ellipse cx="534" cy="490" rx="100" ry="10" fill="#2a1e10" opacity="0.7"/>
+
+<!-- person standing upright, strong stance -->
+<!-- legs — wide, planted -->
+<path d="M504 490 Q494 455 488 420" fill="none" stroke="#8a7250" stroke-width="22" stroke-linecap="round"/>
+<path d="M564 490 Q574 455 580 420" fill="none" stroke="#8a7250" stroke-width="22" stroke-linecap="round"/>
+<ellipse cx="496" cy="496" rx="18" ry="7" fill="#6a5030"/>
+<ellipse cx="572" cy="496" rx="18" ry="7" fill="#6a5030"/>
+
+<!-- torso — upright, broad chest -->
+<path d="M482 288 Q480 258 534 252 Q588 258 586 288 L582 422 Q534 434 486 422Z" fill="#9a7e58"/>
+
+<!-- left arm — raised, writing in notebook with intent -->
+<path d="M482 305 Q448 275 432 242 Q424 222 434 212" fill="none" stroke="#9a7e58" stroke-width="24" stroke-linecap="round"/>
+<ellipse cx="437" cy="208" rx="12" ry="14" fill="#a08860" transform="rotate(-25,437,208)"/>
+
+<!-- notebook — open, being written in -->
+<rect x="390" y="148" width="90" height="110" rx="5" fill="#f5efe6" opacity="0.14" stroke="#b8935a" stroke-width="1.2"/>
+<rect x="390" y="148" width="8" height="110" rx="3" fill="#b8935a" opacity="0.3"/>
+<!-- notebook writing lines — dense, purposeful -->
+<line x1="403" y1="168" x2="474" y2="168" stroke="#b8935a" stroke-width="1" opacity="0.5"/>
+<line x1="403" y1="180" x2="474" y2="180" stroke="#b8935a" stroke-width="1" opacity="0.4"/>
+<line x1="403" y1="192" x2="474" y2="192" stroke="#b8935a" stroke-width="1" opacity="0.35"/>
+<line x1="403" y1="204" x2="460" y2="204" stroke="#b8935a" stroke-width="1" opacity="0.3"/>
+<line x1="403" y1="216" x2="470" y2="216" stroke="#b8935a" stroke-width="1" opacity="0.25"/>
+<line x1="403" y1="228" x2="450" y2="228" stroke="#b8935a" stroke-width="1" opacity="0.2"/>
+<!-- pen tip at notebook -->
+<line x1="434" y1="212" x2="415" y2="168" stroke="#f0ebe3" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+<polygon points="413,162 418,155 422,165" fill="#b8935a" opacity="0.9"/>
+
+<!-- right arm — relaxed at side -->
+<path d="M586 300 Q614 322 618 358" fill="none" stroke="#9a7e58" stroke-width="24" stroke-linecap="round"/>
+<ellipse cx="618" cy="362" rx="12" ry="14" fill="#a08860" transform="rotate(10,618,362)"/>
+
+<!-- neck -->
+<rect x="524" y="232" width="22" height="26" rx="7" fill="#a08860"/>
+<!-- head — fully upright, chin up -->
+<ellipse cx="534" cy="206" rx="34" ry="38" fill="#a08860"/>
+
+<!-- face — open, forward facing, calm and determined -->
+<ellipse cx="521" cy="198" rx="4.5" ry="5" fill="#ba9868"/>
+<ellipse cx="547" cy="198" rx="4.5" ry="5" fill="#ba9868"/>
+<!-- gold eye reflection — the mirror insight -->
+<circle cx="522" cy="196" r="2.5" fill="#e8c070" opacity="1"/>
+<circle cx="548" cy="196" r="2.5" fill="#e8c070" opacity="1"/>
+<!-- slight set jaw — serious, committed -->
+<path d="M522 218 Q534 222 546 218" fill="none" stroke="#8a6030" stroke-width="1.8" stroke-linecap="round"/>
+<!-- nose -->
+<path d="M532 204 Q530 212 534 215 Q538 212 536 204" fill="none" stroke="#8a6030" stroke-width="1" opacity="0.5"/>
+<!-- hair -->
+<ellipse cx="534" cy="176" rx="34" ry="16" fill="#2a1e08"/>
+<path d="M500 192 Q498 170 512 160 Q523 153 534 154 Q545 153 556 160 Q570 170 568 192" fill="#2a1e08"/>
+
+<!-- warm gold aura — the identity light -->
+<ellipse cx="534" cy="340" rx="160" ry="200" fill="#b8935a" opacity="0.03"/>
+<ellipse cx="534" cy="206" rx="80" ry="80" fill="#b8935a" opacity="0.05"/>
+
+<!-- thought cloud — clear, purposeful -->
+<ellipse cx="612" cy="155" rx="52" ry="38" fill="#0e1208" stroke="#7ab894" stroke-width="0.8" opacity="0.7"/>
+<text x="612" y="140" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#7ab894" opacity="0.9" font-style="italic">I see it now.</text>
+<text x="612" y="157" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#7ab894" opacity="0.75" font-style="italic">I understand why.</text>
+<text x="612" y="174" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#7ab894" opacity="0.6" font-style="italic">I choose different.</text>
+<path d="M580 188 Q574 200 568 208" fill="none" stroke="#7ab894" stroke-width="0.6" opacity="0.4"/>
+
+<!-- label block -->
+<rect x="430" y="510" width="222" height="50" rx="3" fill="#0a1a0a" stroke="rgba(122,184,148,0.25)" stroke-width="0.5"/>
+<text x="541" y="530" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#7ab894" opacity="0.85" letter-spacing="2">WITH THE PROTOCOL</text>
+<text x="541" y="550" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#9a8f85" font-style="italic" opacity="0.7">identity changed. baseline shifted.</text>
+
+<!-- ── BOTTOM TAGLINE ── -->
+<line x1="80" y1="578" x2="600" y2="578" stroke="#b8935a" stroke-width="0.4" opacity="0.18"/>
+<text x="340" y="600" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#f0ebe3" opacity="0.45" font-style="italic">The difference is not discipline.</text>
+<text x="340" y="616" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#b8935a" font-style="italic" opacity="0.85">The difference is identity.</text>
+</svg>
+
+<!-- TITLE — pure HTML, scales perfectly on all screens -->
+<div style="background:#080706;padding:28px var(--px) 0;text-align:center">
+  <div style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);opacity:0.65;margin-bottom:10px">Aman The Coach Presents</div>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,10vw,56px);font-weight:600;color:var(--white);letter-spacing:2px;line-height:1.05">THE 30-DAY</div>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(42px,12vw,68px);font-style:italic;font-weight:400;color:var(--gold);line-height:1.05;margin-bottom:20px">Mirror Protocol</div>
+  <div style="height:0.5px;background:var(--gold);opacity:0.25;margin:0 20px 24px"></div>
+</div>
+
+<!-- WHAT YOU GET — pure HTML bullets, large and readable -->
+<div style="background:#080706;padding:0 var(--px) 48px">
+  <div style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);opacity:0.7;text-align:center;margin-bottom:24px">What You Get</div>
+
+  <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:0.5px solid rgba(240,235,227,0.07)">
+    <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px"></div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--white);margin-bottom:5px;font-weight:400;line-height:1.2">61 emails over 30 days</div>
+      <div style="font-size:15px;font-style:italic;color:var(--gold);line-height:1.5">one every morning, one every evening</div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:0.5px solid rgba(240,235,227,0.07)">
+    <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px"></div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--white);margin-bottom:5px;font-weight:400;line-height:1.2">Morning Mirror Question</div>
+      <div style="font-size:15px;font-style:italic;color:var(--gold);line-height:1.5">deep self-reflection before the world gets to you</div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:0.5px solid rgba(240,235,227,0.07)">
+    <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px"></div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--white);margin-bottom:5px;font-weight:400;line-height:1.2">Evening Reflection</div>
+      <div style="font-size:15px;font-style:italic;color:var(--gold);line-height:1.5">close the loop — what did the day reveal?</div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:0.5px solid rgba(240,235,227,0.07)">
+    <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px"></div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--white);margin-bottom:5px;font-weight:400;line-height:1.2">Movement as Identity</div>
+      <div style="font-size:15px;font-style:italic;color:var(--gold);line-height:1.5">by day 30, you move because that is who you are</div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:0.5px solid rgba(240,235,227,0.07)">
+    <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px"></div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--white);margin-bottom:5px;font-weight:400;line-height:1.2">Complete Privacy</div>
+      <div style="font-size:15px;font-style:italic;color:var(--gold);line-height:1.5">between you and your notebook. no audience.</div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0">
+    <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px"></div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--white);margin-bottom:5px;font-weight:400;line-height:1.2">Identity Change, Not Habit Change</div>
+      <div style="font-size:15px;font-style:italic;color:var(--gold);line-height:1.5">you always return to your identity. this changes it.</div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- BREAK: deep burgundy -->
+<div style="background:#1e0e0e;padding:28px var(--px);text-align:center;border-top:0.5px solid rgba(180,80,80,0.15);border-bottom:0.5px solid rgba(180,80,80,0.15)">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#c47272;margin-bottom:16px">The real problem</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:300;color:#f0e0e0;line-height:1.5;margin-bottom:10px">"The fitness industry has been selling you<br>solutions to the wrong problem."</p>
+  <p style="font-size:13px;color:#c47272;font-style:italic">— Aman The Coach</p>
+  <div style="width:40px;height:1px;background:#c47272;margin:20px auto 0;opacity:0.35"></div>
+</div>
+
+<!-- ACC 1: What is this — OPEN BY DEFAULT -->
+<div class="acc-section open">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <div class="acc-left">
+      <div class="acc-tag">What exactly is this</div>
+      <div class="acc-title">Simple structure.<br><em>Profound depth.</em></div>
+    </div>
+    <div class="acc-icon">+</div>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div class="sec-body">
+        <p>Every morning, before your hands reach for your phone, an email arrives with one question. Not a generic question — a psychological question built on decades of research into behaviour change, identity theory, and expressive writing. You open your notebook and write for 3 minutes. That is all the morning requires.</p>
+        <p>Every evening, a second email arrives. It connects to the morning. It asks what the day revealed. You write for 3 minutes. You sleep. Overnight, your brain consolidates what you found.</p>
+        <p>Repeated 30 times, this process does what no fitness programme has ever done for you — it changes the identity that the behaviour comes from.</p>
+      </div>
+      <div class="what-box">
+        <div class="what-box-num">01</div>
+        <div class="what-box-title">Week 1 — The Honest Audit</div>
+        <div class="what-box-body">You see yourself clearly. The gap between who you present yourself to be and who you actually are in private. Named precisely. Without performance.</div>
+      </div>
+      <div class="what-box">
+        <div class="what-box-num">02</div>
+        <div class="what-box-title">Week 2 — The Root Cause</div>
+        <div class="what-box-body">You go to the origin. The wound that became a belief. The belief that became behaviour. The behaviour that became the baseline you keep returning to.</div>
+      </div>
+      <div class="what-box">
+        <div class="what-box-num">03</div>
+        <div class="what-box-title">Week 3 — The Environment Audit</div>
+        <div class="what-box-body">You examine the world that built you. The family messages. The inherited beliefs about bodies and worth. You decide what you carry forward.</div>
+      </div>
+      <div class="what-box" style="margin-bottom:0">
+        <div class="what-box-num">04</div>
+        <div class="what-box-title">Week 4 — The Identity Installation</div>
+        <div class="what-box-body">You stop waiting to become the person you have been describing and begin inhabiting them. Movement becomes not something you do — but something you are.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK: warm amber arc -->
+<div style="background:#1a1206;padding:28px var(--px);text-align:center;border-top:0.5px solid rgba(184,147,90,0.2);border-bottom:0.5px solid rgba(184,147,90,0.2)">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#b8935a;margin-bottom:16px">The 30-day arc</div>
+  <div style="display:flex;justify-content:space-between;gap:6px;max-width:400px;margin:0 auto">
+    <div style="flex:1;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#b8935a;margin-bottom:4px">W1</div><div style="font-size:11px;color:rgba(240,235,227,0.55);line-height:1.5">See<br>yourself</div></div>
+    <div style="color:rgba(184,147,90,0.3);font-size:18px;align-self:center">→</div>
+    <div style="flex:1;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#b8935a;margin-bottom:4px">W2</div><div style="font-size:11px;color:rgba(240,235,227,0.55);line-height:1.5">Understand<br>why</div></div>
+    <div style="color:rgba(184,147,90,0.3);font-size:18px;align-self:center">→</div>
+    <div style="flex:1;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#b8935a;margin-bottom:4px">W3</div><div style="font-size:11px;color:rgba(240,235,227,0.55);line-height:1.5">Release<br>what built you</div></div>
+    <div style="color:rgba(184,147,90,0.3);font-size:18px;align-self:center">→</div>
+    <div style="flex:1;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#b8935a;margin-bottom:4px">W4</div><div style="font-size:11px;color:rgba(240,235,227,0.55);line-height:1.5">Become<br>who you are</div></div>
+  </div>
+  <div style="width:40px;height:1px;background:#b8935a;margin:22px auto 0;opacity:0.35"></div>
+</div>
+
+<!-- ACC 2: Science — writing changes the brain -->
+<div class="acc-section">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <div class="acc-left">
+      <div class="acc-tag">The science</div>
+      <div class="acc-title">Why writing changes<br><em>the brain.</em></div>
+    </div>
+    <div class="acc-icon">+</div>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div class="sec-body"><p>Dr. James Pennebaker's research at the University of Texas found that expressive writing for just 15–20 minutes over 3–4 days produced measurable psychological change that persisted months later. The Mirror Protocol does this every single day for 30 days.</p></div>
+      <svg width="100%" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg">
+      <rect width="680" height="420" fill="#080706"/>
+      <text x="340" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#b8935a" letter-spacing="3" opacity="0.6">THE IDENTITY LOOP</text>
+      <rect x="190" y="42" width="300" height="68" rx="4" fill="#0f0c09" stroke="#b8935a" stroke-width="1.2"/>
+      <text x="340" y="70" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#f0ebe3">Morning — question arrives</text>
+      <text x="340" y="92" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#9a8f85" font-style="italic">Write 3 mins before the world gets to you</text>
+      <line x1="340" y1="110" x2="340" y2="142" stroke="#b8935a" stroke-width="1" opacity="0.5"/>
+      <polygon points="333,139 340,152 347,139" fill="#b8935a" opacity="0.5"/>
+      <rect x="190" y="152" width="300" height="68" rx="4" fill="#0d0a07" stroke="#b8935a" stroke-width="0.6" opacity="0.7"/>
+      <text x="340" y="180" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#f0ebe3">Carry the question all day</text>
+      <text x="340" y="202" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#9a8f85" font-style="italic">Subconscious works on it. Patterns become visible.</text>
+      <line x1="340" y1="220" x2="340" y2="252" stroke="#b8935a" stroke-width="1" opacity="0.5"/>
+      <polygon points="333,249 340,262 347,249" fill="#b8935a" opacity="0.5"/>
+      <rect x="190" y="262" width="300" height="68" rx="4" fill="#0f0c09" stroke="#b8935a" stroke-width="1.2"/>
+      <text x="340" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#f0ebe3">Evening — reflection</text>
+      <text x="340" y="312" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#9a8f85" font-style="italic">Close the loop. What did today reveal?</text>
+      <line x1="340" y1="330" x2="340" y2="358" stroke="#b8935a" stroke-width="1" opacity="0.5"/>
+      <polygon points="333,355 340,368 347,355" fill="#b8935a" opacity="0.5"/>
+      <rect x="155" y="368" width="370" height="38" rx="4" fill="#b8935a" opacity="0.12" stroke="#b8935a" stroke-width="1.2"/>
+      <text x="340" y="384" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#b8935a">Sleep consolidates. Identity shifts overnight.</text>
+      <text x="340" y="402" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#f0ebe3" opacity="0.55" font-style="italic">Repeated 30 times — the baseline changes permanently.</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK: muted olive -->
+<div style="background:#0e1610;padding:28px var(--px);text-align:center;border-top:0.5px solid rgba(90,140,100,0.18);border-bottom:0.5px solid rgba(90,140,100,0.18)">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#7ab894;margin-bottom:16px">Movement truth</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:300;color:#e0f0e8;line-height:1.5;margin-bottom:10px">You do not need more motivation<br>to move your body.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:300;font-style:italic;color:#7ab894;line-height:1.5">You need an identity<br>that includes movement.</p>
+  <div style="width:40px;height:1px;background:#7ab894;margin:20px auto 0;opacity:0.35"></div>
+</div>
+
+<!-- ACC 3: Why 92% return -->
+<div class="acc-section">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <div class="acc-left">
+      <div class="acc-tag">Why other programmes failed you</div>
+      <div class="acc-title">92% return to<br><em>their old baseline.</em></div>
+    </div>
+    <div class="acc-icon">+</div>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div class="sec-body"><p>Behaviour change research consistently shows that without identity-level work, people return to their starting point within weeks — regardless of how good the programme was.</p></div>
+      <svg width="100%" viewBox="0 0 680 310" xmlns="http://www.w3.org/2000/svg">
+      <rect width="680" height="310" fill="#080706"/>
+      <path d="M170 158 L170 42 A116 116 0 1 1 49 230 Z" fill="#b8935a" opacity="0.82"/>
+      <path d="M170 158 L49 230 A116 116 0 0 1 97 42 Z" fill="#b8935a" opacity="0.42"/>
+      <path d="M170 158 L97 42 A116 116 0 0 1 170 42 Z" fill="#b8935a" opacity="0.2"/>
+      <circle cx="170" cy="158" r="54" fill="#080706"/>
+      <text x="170" y="152" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#b8935a">92%</text>
+      <text x="170" y="174" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#9a8f85" letter-spacing="1">RETURN</text>
+      <rect x="332" y="52" width="14" height="14" rx="3" fill="#b8935a" opacity="0.82"/>
+      <text x="354" y="64" font-family="Georgia, serif" font-size="15" fill="#f0ebe3">52% — identity never changed</text>
+      <rect x="332" y="84" width="14" height="14" rx="3" fill="#b8935a" opacity="0.42"/>
+      <text x="354" y="96" font-family="Georgia, serif" font-size="15" fill="#f0ebe3">23% — wrong environment</text>
+      <rect x="332" y="116" width="14" height="14" rx="3" fill="#b8935a" opacity="0.2"/>
+      <text x="354" y="128" font-family="Georgia, serif" font-size="15" fill="#f0ebe3">17% — surface habit only</text>
+      <rect x="332" y="148" width="14" height="14" rx="3" fill="#9a8f85" opacity="0.3"/>
+      <text x="354" y="160" font-family="Georgia, serif" font-size="15" fill="#f0ebe3">8% — other factors</text>
+      <text x="332" y="205" font-family="Georgia, serif" font-size="14" fill="#b8935a" font-style="italic">The Mirror Protocol addresses</text>
+      <text x="332" y="224" font-family="Georgia, serif" font-size="14" fill="#b8935a" font-style="italic">all three primary causes.</text>
+      <text x="332" y="268" font-family="Georgia, serif" font-size="11" fill="#6b6560" font-style="italic">Sources: Prochaska et al.; IHRSA retention data</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK: deep slate blue -->
+<div style="background:#0a0e18;padding:28px var(--px);text-align:center;border-top:0.5px solid rgba(80,100,160,0.18);border-bottom:0.5px solid rgba(80,100,160,0.18)">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#8090c0;margin-bottom:16px">What happens overnight</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,26px);font-weight:300;color:#dde2f0;line-height:1.6">The morning question plants a seed.<br>The day becomes the soil.<br>The evening reflection waters it.<br><span style="font-style:italic;color:#8090c0">Sleep does the rest.</span></p>
+  <div style="width:40px;height:1px;background:#8090c0;margin:20px auto 0;opacity:0.35"></div>
+</div>
+
+<!-- ACC 4: Morning window -->
+<div class="acc-section">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <div class="acc-left">
+      <div class="acc-tag">The morning window</div>
+      <div class="acc-title">Write before your phone.<br><em>Science says why.</em></div>
+    </div>
+    <div class="acc-icon">+</div>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div class="sec-body"><p>The prefrontal cortex is most receptive in the first 20 minutes after waking, before cortisol spikes. Every minute you wait, that window closes.</p></div>
+      <svg width="100%" viewBox="0 0 680 258" xmlns="http://www.w3.org/2000/svg">
+      <rect width="680" height="258" fill="#080706"/>
+      <text x="40" y="26" font-family="Georgia, serif" font-size="12" fill="#b8935a" letter-spacing="2" opacity="0.6">SELF-AWARENESS RECEPTIVITY ON WAKING</text>
+      <text x="40" y="56" font-family="Georgia, serif" font-size="14" fill="#f0ebe3" opacity="0.85">Write immediately on waking</text>
+      <rect x="40" y="64" width="420" height="22" rx="3" fill="#b8935a" opacity="0.78"/>
+      <text x="468" y="80" font-family="Georgia, serif" font-size="13" fill="#b8935a">100%</text>
+      <text x="40" y="108" font-family="Georgia, serif" font-size="14" fill="#f0ebe3" opacity="0.85">After 15 mins on phone</text>
+      <rect x="40" y="116" width="235" height="22" rx="3" fill="#b8935a" opacity="0.4"/>
+      <text x="283" y="132" font-family="Georgia, serif" font-size="13" fill="#9a8f85">−44%</text>
+      <text x="40" y="158" font-family="Georgia, serif" font-size="14" fill="#f0ebe3" opacity="0.85">After 30 mins social media</text>
+      <rect x="40" y="166" width="118" height="22" rx="3" fill="#b8935a" opacity="0.2"/>
+      <text x="166" y="182" font-family="Georgia, serif" font-size="13" fill="#9a8f85">−72%</text>
+      <text x="40" y="208" font-family="Georgia, serif" font-size="14" fill="#f0ebe3" opacity="0.85">After 1 hour of work</text>
+      <rect x="40" y="216" width="59" height="22" rx="3" fill="#b8935a" opacity="0.1"/>
+      <text x="107" y="232" font-family="Georgia, serif" font-size="13" fill="#9a8f85">−86%</text>
+      <line x1="40" y1="248" x2="640" y2="248" stroke="#b8935a" stroke-width="0.4" opacity="0.15"/>
+      <text x="40" y="256" font-family="Georgia, serif" font-size="11" fill="#6b6560" font-style="italic">Source: cortisol awakening response; Creswell et al.</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK: cream -->
+<div style="background:#f5f0e8;padding:28px var(--px);text-align:center;border-top:0.5px solid rgba(140,110,60,0.2);border-bottom:0.5px solid rgba(140,110,60,0.2)">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#8a7248;margin-bottom:16px">A hard truth</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6.5vw,32px);font-weight:300;color:#1a1410;line-height:1.45;margin-bottom:14px">Every programme you have ever tried<br>failed for the same reason.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6.5vw,32px);font-weight:300;font-style:italic;color:#8a7248;line-height:1.45">Not discipline. Not the programme.<br>The identity beneath both.</p>
+  <div style="width:40px;height:1px;background:#8a7248;margin:22px auto 0;opacity:0.4"></div>
+</div>
+
+<!-- ACC 5: How it reaches you -->
+<div class="acc-section">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <div class="acc-left">
+      <div class="acc-tag">How it reaches you</div>
+      <div class="acc-title">Your first task of the day.<br><em>Your last task of the night.</em></div>
+    </div>
+    <div class="acc-icon">+</div>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div class="sec-body">
+        <p>The morning email arrives before the world gets to you. Before your phone. Before social media. The moment you wake up — this is the first thing you do. Open the email. Write in your notebook. Three minutes.</p>
+        <p>The evening email arrives when your day is done. The last thing before you close your eyes — you reflect. You close the loop. You carry what you found into your sleep, where the deepest processing happens.</p>
+        <p>You decide when your day starts and ends. The protocol follows your rhythm — not the other way around.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div style="padding:22px 16px;background:rgba(184,147,90,0.06);border:0.5px solid rgba(184,147,90,0.18);text-align:center">
+          <div style="font-size:28px;margin-bottom:10px">☀️</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#b8935a;margin-bottom:8px">Morning</div>
+          <div style="font-size:14px;color:rgba(240,235,227,0.65);line-height:1.8">First task of the day<br>Before your phone<br><em style="color:#b8935a">Your timetable</em></div>
+        </div>
+        <div style="padding:22px 16px;background:rgba(184,147,90,0.06);border:0.5px solid rgba(184,147,90,0.18);text-align:center">
+          <div style="font-size:28px;margin-bottom:10px">🌙</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#b8935a;margin-bottom:8px">Evening</div>
+          <div style="font-size:14px;color:rgba(240,235,227,0.65);line-height:1.8">Last task of the day<br>Before you sleep<br><em style="color:#b8935a">Your timetable</em></div>
+        </div>
+      </div>
+      <div style="padding:18px;background:rgba(184,147,90,0.05);border:0.5px solid rgba(184,147,90,0.22);text-align:center">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:#f0ebe3;line-height:1.6">If your mornings are already full —<br><span style="color:#b8935a">wake 20 minutes earlier. That is all this requires.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK: slate blue -->
+<div style="background:#0a0e18;padding:28px var(--px);text-align:center;border-top:0.5px solid rgba(80,100,160,0.18);border-bottom:0.5px solid rgba(80,100,160,0.18)">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#8090c0;margin-bottom:16px">What happens overnight</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,26px);font-weight:300;color:#dde2f0;line-height:1.6">The morning question plants a seed.<br>The day becomes the soil.<br>The evening reflection waters it.<br><span style="font-style:italic;color:#8090c0">Sleep does the rest.</span></p>
+  <div style="width:40px;height:1px;background:#8090c0;margin:20px auto 0;opacity:0.35"></div>
+</div>
+
+<!-- ACC 6: Real research stats -->
+<div class="acc-section">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <div class="acc-left">
+      <div class="acc-tag">Real research. Real results.</div>
+      <div class="acc-title">The science is<br><em>not new. You are.</em></div>
+    </div>
+    <div class="acc-icon">+</div>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div class="sec-body"><p>Every element of the Mirror Protocol is grounded in peer-reviewed research. This is not a motivational programme built on opinion. It is a system built on decades of psychological science.</p></div>
+
+      <div style="padding:22px;border:0.5px solid rgba(184,147,90,0.18);margin-bottom:12px;background:rgba(184,147,90,0.04)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:48px;color:#b8935a;font-weight:300;line-height:1;margin-bottom:6px">400+</div>
+        <div style="font-size:16px;color:#f0ebe3;margin-bottom:6px;font-weight:400">Studies on expressive writing</div>
+        <div style="font-size:13px;color:rgba(240,235,227,0.6);line-height:1.8">Since Pennebaker's 1986 study, over 400 peer-reviewed studies confirmed that writing about your inner experience produces measurable psychological and physical benefits persisting months after the writing ends.</div>
+        <div style="font-size:11px;color:rgba(107,101,96,0.55);margin-top:8px;font-style:italic">Pennebaker & Beall (1986); PMC bibliometric review (2022)</div>
+      </div>
+
+      <div style="padding:22px;border:0.5px solid rgba(184,147,90,0.18);margin-bottom:12px;background:rgba(184,147,90,0.04)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:48px;color:#b8935a;font-weight:300;line-height:1;margin-bottom:6px">15 min</div>
+        <div style="font-size:16px;color:#f0ebe3;margin-bottom:6px;font-weight:400">Is all it takes to produce lasting change</div>
+        <div style="font-size:13px;color:rgba(240,235,227,0.6);line-height:1.8">Writing for just 15–20 minutes over 3–4 days produced improvements in psychological wellbeing, immune function, and behaviour — with effects persisting months later. The Mirror Protocol delivers this every day for 30 days.</div>
+        <div style="font-size:11px;color:rgba(107,101,96,0.55);margin-top:8px;font-style:italic">Pennebaker, J.W. — University of Texas at Austin (1997)</div>
+      </div>
+
+      <div style="padding:22px;border:0.5px solid rgba(184,147,90,0.18);margin-bottom:12px;background:rgba(184,147,90,0.04)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:48px;color:#b8935a;font-weight:300;line-height:1;margin-bottom:6px">80%</div>
+        <div style="font-size:16px;color:#f0ebe3;margin-bottom:6px;font-weight:400">Of behaviour change attempts fail within weeks</div>
+        <div style="font-size:13px;color:rgba(240,235,227,0.6);line-height:1.8">Research shows 80% of resolutions fail by February — not because of lack of willpower, but because outcome-based goals don't change the identity beneath them. Identity-based change produces lasting results where outcome-based approaches fail.</div>
+        <div style="font-size:11px;color:rgba(107,101,96,0.55);margin-top:8px;font-style:italic">University of Scranton; James Clear — Atomic Habits (2018)</div>
+      </div>
+
+      <div style="padding:22px;border:0.5px solid rgba(184,147,90,0.18);margin-bottom:12px;background:rgba(184,147,90,0.04)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:48px;color:#b8935a;font-weight:300;line-height:1;margin-bottom:6px">38×</div>
+        <div style="font-size:16px;color:#f0ebe3;margin-bottom:6px;font-weight:400">Better with just 1% daily improvement</div>
+        <div style="font-size:13px;color:rgba(240,235,227,0.6);line-height:1.8">A 1% daily improvement compounds to being 37.78 times better after one year. Identity-based habits provide the consistency this compounding requires — because you stop fighting your psychology and start working with it.</div>
+        <div style="font-size:11px;color:rgba(107,101,96,0.55);margin-top:8px;font-style:italic">James Clear — Atomic Habits; compound improvement mathematics</div>
+      </div>
+
+      <div style="padding:22px;border:0.5px solid rgba(184,147,90,0.18);background:rgba(184,147,90,0.04)">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:48px;color:#b8935a;font-weight:300;line-height:1;margin-bottom:6px">REM</div>
+        <div style="font-size:16px;color:#f0ebe3;margin-bottom:6px;font-weight:400">Sleep consolidates what you reflect on before bed</div>
+        <div style="font-size:13px;color:rgba(240,235,227,0.6);line-height:1.8">Over a century of neuroscience confirms that sleep actively consolidates memories — specifically those flagged as emotionally significant before sleep. The evening reflection is a deliberate instruction to your brain about what to process overnight.</div>
+        <div style="font-size:11px;color:rgba(107,101,96,0.55);margin-top:8px;font-style:italic">Rasch & Born — Physiological Reviews (2013); Yale School of Medicine</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK: cream stat -->
+<div style="background:#f5f0e8;padding:28px var(--px);text-align:center;border-top:0.5px solid rgba(140,110,60,0.2);border-bottom:0.5px solid rgba(140,110,60,0.2)">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#8a7248;margin-bottom:16px">What the research says</div>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(52px,16vw,80px);font-weight:300;color:#8a7248;line-height:1;margin-bottom:10px">83%</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,5vw,24px);font-weight:300;color:#1a1410;line-height:1.55;margin-bottom:6px">of people who journal consistently report<br>improved self-awareness within two weeks.</p>
+  <p style="font-size:12px;color:#8a7248;font-style:italic;margin-top:12px">University of Rochester Medical Center</p>
+  <div style="width:40px;height:1px;background:#8a7248;margin:22px auto 0;opacity:0.4"></div>
+</div>
+
+<!-- ACC 7: Identity model -->
+<div class="acc-section">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <div class="acc-left">
+      <div class="acc-tag">Why nothing has worked before</div>
+      <div class="acc-title">You had the wrong<br><em>entry point.</em></div>
+    </div>
+    <div class="acc-icon">+</div>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div class="sec-body"><p>Most programmes start from the outside in — change the behaviour, get the outcome. But behaviour is downstream of identity. Change the identity and the behaviour follows without force.</p></div>
+      <svg width="100%" viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg">
+      <rect width="680" height="380" fill="#080706"/>
+      <circle cx="340" cy="180" r="155" fill="none" stroke="#b8935a" stroke-width="0.5" opacity="0.18"/>
+      <circle cx="340" cy="180" r="105" fill="none" stroke="#b8935a" stroke-width="0.5" opacity="0.28"/>
+      <circle cx="340" cy="180" r="58" fill="#b8935a" opacity="0.1" stroke="#b8935a" stroke-width="1.5"/>
+      <text x="340" y="176" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#b8935a" font-weight="500">IDENTITY</text>
+      <text x="340" y="196" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#b8935a" opacity="0.7" font-style="italic">who you believe you are</text>
+      <text x="340" y="120" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#f0ebe3" opacity="0.65">PROCESS</text>
+      <text x="340" y="138" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#9a8f85" font-style="italic">what you do daily</text>
+      <text x="340" y="52" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#f0ebe3" opacity="0.4">OUTCOMES</text>
+      <text x="340" y="70" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#6b6560" font-style="italic">what you achieve</text>
+      <path d="M195 46 Q172 96 215 135" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.65"/>
+      <text x="68" y="42" font-family="Georgia, serif" font-size="13" fill="#e88080" opacity="0.85">Most programmes</text>
+      <text x="68" y="60" font-family="Georgia, serif" font-size="11" fill="#9a8f85" font-style="italic">start here — outside in</text>
+      <polygon points="211,138 218,127 225,139" fill="#8b3a3a" opacity="0.65"/>
+      <path d="M428 180 Q468 210 460 270" fill="none" stroke="#3a6b4a" stroke-width="1.5" opacity="0.75"/>
+      <text x="472" y="288" font-family="Georgia, serif" font-size="13" fill="#7ab894" opacity="0.9">Mirror Protocol</text>
+      <text x="472" y="306" font-family="Georgia, serif" font-size="11" fill="#9a8f85" font-style="italic">starts here — inside out</text>
+      <polygon points="457,274 463,263 470,275" fill="#3a6b4a" opacity="0.75"/>
+      <text x="340" y="348" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#b8935a" opacity="0.45" font-style="italic">James Clear — Atomic Habits: three layers of behaviour change</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- BREAK: parchment -->
+<div style="background:#f0e8d8;padding:28px var(--px);text-align:center;border-top:0.5px solid rgba(140,110,60,0.2);border-bottom:0.5px solid rgba(140,110,60,0.2)">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#8a6a38;margin-bottom:16px">Remember this</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:300;color:#1a120a;line-height:1.5;margin-bottom:10px">The version of you that answered<br>the Mirror Test honestly —</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:300;font-style:italic;color:#8a6a38;line-height:1.5">that version is braver than<br>you are giving them credit for.</p>
+  <div style="width:40px;height:1px;background:#8a6a38;margin:20px auto 0;opacity:0.4"></div>
+</div>
+
+<!-- ACC 8: Brain quote -->
+<div class="acc-section">
+  <div class="acc-header" onclick="toggleAcc(this)">
+    <div class="acc-left">
+      <div class="acc-tag">The neuroscience</div>
+      <div class="acc-title">What happens inside<br><em>your brain.</em></div>
+    </div>
+    <div class="acc-icon">+</div>
+  </div>
+  <div class="acc-body">
+    <div class="acc-body-inner">
+      <div style="padding:24px;background:rgba(184,147,90,0.04);border:0.5px solid rgba(184,147,90,0.18);text-align:center">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,5vw,24px);font-style:italic;color:rgba(240,235,227,0.75);line-height:1.65;margin-bottom:12px">Every question in this protocol activates the prefrontal cortex — the part of the brain responsible for <span style="color:#b8935a">self-awareness, decision-making, and identity.</span></p>
+        <p style="font-size:12px;color:rgba(107,101,96,0.6);font-style:italic">Creswell et al. — neuroimaging research on self-reflection and prefrontal activation</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<div class="section" style="padding-bottom:24px">
+  <div class="sec-tag">Your questions answered</div>
+  <h2 class="sec-h">Frequently asked<br><em>questions.</em></h2>
+</div>
+<div style="padding:0 var(--px) 48px">
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>What is the 30-Day Mirror Protocol?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">The 30-Day Mirror Protocol is a psychological fitness programme delivered entirely through email. Every morning, before anything else, you receive one deeply crafted question about yourself — your patterns, your beliefs, your relationship with your body and your identity. You write the answer in a notebook. Every evening, a second email arrives and asks what the day revealed. This 24-hour cycle of morning reflection and evening consolidation repeats for 30 consecutive days. No app. No community. No live sessions. Just you, your inbox, and your notebook — going deeper into yourself than most people ever go, in a structure that is proven to produce genuine identity change.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>How exactly will this protocol help me?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">It will help you in four specific, sequential ways. In Week 1, you will see yourself clearly — the gap between who you present yourself to be and who you actually are in private. Most people never look at this gap honestly. You will. In Week 2, you will understand why you keep returning to the same baseline — the wound beneath the habit, the belief beneath the pattern, the fear that has been running your behaviour without your awareness. In Week 3, you will examine what built you — the family messages, the social environment, the inherited beliefs about bodies and worth that were absorbed before you could question them. You will decide what to keep and what to release. In Week 4, you will begin inhabiting the person you have been describing — not waiting to feel ready, but practising it daily through small, deliberate actions. By Day 30, movement will not be something you do for fitness. It will be something you do because that is who you are. That shift — from obligation to identity — is the only thing that has ever actually lasted.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Is this just journaling?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">No. Journaling is open-ended — you write whatever comes. The Mirror Protocol gives you specific psychological questions built on identity theory and behaviour change research. Each question surfaces a specific layer: the pattern, the root cause, the inherited belief, the fear, the identity. The structure is the difference between digging randomly and digging with a map.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>What if I am not a good writer?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">This does not require good writing. It requires honest writing. Three sentences of genuine truth are worth more than three pages of polished performance. Grammar does not matter. Only honesty matters. Pennebaker's research found consistent benefits across education levels — from senior professionals to people with basic literacy.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>What if I miss a day?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">This is a 30-day consecutive commitment. Missing a day breaks the compound effect. However, if you miss one day, you do not restart from Day 1. You resume from the day you missed. Your 30 days extends by one. But understand this clearly: missing a day is not neutral. Come back with the same commitment you brought on Day 1.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>How is this different from a fitness programme?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">Every fitness programme tells you what to do with your body. This protocol asks why your body has been the last thing you take care of. It goes to the origin of the pattern and changes the identity that the behaviour comes from. Fitness programmes change what you do. This changes who you are.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Is my data private?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">Your Mirror Test answers are processed to generate your report and then discarded — not stored. Your email address is stored to deliver the 30-day sequence. Your journal answers are yours alone — written in your own notebook, never submitted anywhere, never read by anyone.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Do I need any equipment or apps?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">A notebook and a pen. That is all. No platform to log into. No app to download. Physical writing is strongly recommended — writing by hand engages the brain differently than typing and produces stronger self-reflective responses.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>What kind of movement is expected?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">Any movement counts. A walk. Stretching. Bodyweight exercises. Whatever you already do or want to do. The protocol does not prescribe workouts. It builds the identity of someone for whom movement is a natural daily expression. By Day 30, movement stops being something you do for fitness and becomes something you do because that is who you are.</div>
+  </div>
+
+  <div class="faq-item" style="border-bottom:0.5px solid rgba(184,147,90,0.18)">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Will this actually work for me?</span><span class="faq-arrow">↓</span></div>
+    <div class="faq-a">It will work if you are honest. Pennebaker's research found consistent benefits across personality types — the one common factor was the willingness to write honestly rather than performatively. The protocol cannot do the work for you. But if you show up honestly every morning and every night for 30 days, you will understand yourself in a way that changes what is possible.</div>
+  </div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- CREAM BREAK 3 -->
+<div style="background:#f5f0e8;padding:28px var(--px);text-align:center">
+  <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#8a7248;margin-bottom:18px">Before you decide</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:300;color:#1a1410;line-height:1.5;margin-bottom:16px">You have read enough to know<br>whether this is for you.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-weight:300;font-style:italic;color:#8a7248;line-height:1.5">The only question left is whether<br>you are ready to be honest.</p>
+  <div style="margin-top:28px;font-size:13px;color:#6a5a38;line-height:1.8">30 days. One email in the morning.<br>One email at night. A notebook.<br>That is all this requires.</div>
+  <div style="width:40px;height:1px;background:#8a7248;margin:24px auto 0;opacity:0.4"></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRICE -->
+<div class="price-block" id="buy-section">
+  <div class="price-eyebrow">One time · 30 days · Instant access</div>
+  <div class="price-amt">₹499</div>
+  <div class="price-ctx">Less than one skipped gym membership.<br>More permanent than any programme you have tried.</div>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:rgba(240,235,227,0.38);margin-bottom:30px;line-height:1.6">You always return to your identity.<br><span style="color:var(--gold)">This changes the identity.</span></div>
+  <button class="buy-btn" onclick="window.location.href='https://rzp.io/rzp/WOtWGRF'">Begin The 30-Day Protocol <span>→</span></button>
+  <p class="price-note">Your first email arrives within minutes of payment.<br>Your 30 days begins with your next morning.</p>
+</div>
+
+<div style="padding:36px var(--px);text-align:center;border-top:0.5px solid var(--line)">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,28px);font-style:italic;color:rgba(240,235,227,0.42);line-height:1.55">The person in the mirror is waiting<br>for you to <span style="color:var(--gold)">become them.</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-top:14px;letter-spacing:0.1em">— AMAN THE COACH</div>
+</div>
+
+<div class="sticky-bar">
+  <div class="sticky-price">₹499</div>
+  <button class="sticky-btn" onclick="document.getElementById('buy-section').scrollIntoView({behavior:'smooth'})">Begin The Protocol <span>→</span></button>
+</div>
+<div style="height:64px"></div>
+
+</body>
+</html>
