@@ -168,39 +168,36 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;fo
   </div>
 </div>
 
-<!-- REPORT -->
+<!-- REPORT CONFIRMATION — email delivery -->
 <div id="page-report" style="display:none">
-  <div class="r-nav">
-    <div class="r-brand">The Mirror Test</div>
-    <div class="r-badge">Personal Report</div>
+  <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;background:var(--bg)">
+
+    <!-- envelope icon -->
+    <div style="width:72px;height:72px;border:0.5px solid rgba(184,147,90,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:28px;background:rgba(184,147,90,0.06)">
+      <div style="font-size:32px">✉️</div>
+    </div>
+
+    <div style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#b8935a;margin-bottom:14px">Your report is ready</div>
+
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,8vw,48px);font-weight:300;color:#f0ebe3;line-height:1.15;margin-bottom:16px">Check your<br><em style="color:#b8935a">inbox.</em></h1>
+
+    <p style="font-size:16px;line-height:1.85;color:rgba(240,235,227,0.65);max-width:340px;margin-bottom:10px">Your personal Mirror Test report has been sent to your email address.</p>
+
+    <p id="confirm-email" style="font-size:14px;color:#b8935a;font-style:italic;margin-bottom:32px"></p>
+
+    <div style="height:0.5px;background:rgba(184,147,90,0.18);width:60px;margin:0 auto 32px"></div>
+
+    <p style="font-size:14px;line-height:1.8;color:rgba(240,235,227,0.45);max-width:300px;margin-bottom:48px">The report contains your pattern, your root cause, your identity statement, and your three daily identity votes. Read it slowly. Read it more than once.</p>
+
+    <p style="font-size:13px;line-height:1.8;color:rgba(240,235,227,0.35);max-width:300px;font-style:italic">If you don't see it within a few minutes,<br>check your spam folder.</p>
+
   </div>
-  <div class="r-hero">
-    <div class="r-tag">Your Mirror Test Report</div>
-    <div class="r-title">Your <em>reflection.</em></div>
-    <div class="r-date" id="r-date"></div>
-  </div>
-  <div class="r-sections" id="r-sections"></div>
-  <div class="r-identity" id="r-identity" style="display:none">
-    <div class="r-id-lbl">Your identity statement</div>
-    <div class="r-id-text" id="r-id-text"></div>
-  </div>
-  <div class="r-votes" id="r-votes" style="display:none">
-    <div class="r-votes-lbl">3 daily identity votes</div>
-  </div>
-  <div class="r-truth" id="r-truth" style="display:none">
-    <div class="r-truth-lbl">The one truth</div>
-    <div class="r-truth-text" id="r-truth-text"></div>
-  </div>
-  <div class="upsell">
-    <div style="height:0.5px;background:var(--line);margin-bottom:32px"></div>
-    <div class="up-tag">Your next step</div>
-    <div class="up-title">The 30-Day<br><em>Mirror Protocol</em></div>
-    <div class="up-body">You have seen what has been holding you back. The report named the wound, the pattern, the fear. Now comes the part where you actually change it — 30 days, two emails a day, the deepest self-work you will ever do. Your identity changes. Your baseline shifts. For the last time.</div>
-    <div class="up-price">₹499</div>
-    <div class="up-price-note">One time · 30 days · Instant access</div>
-    <button class="up-btn" onclick="window.location.href='https://rzp.io/l/https://rzp.io/rzp/Bx24grbG'">Begin The 30-Day Protocol <span>→</span></button>
-    <div class="up-final">You always return to your identity.<br><em>This changes the identity.</em></div>
-  </div>
+  <!-- hidden elements still needed for report generation logic -->
+  <div id="r-sections" style="display:none"></div>
+  <div id="r-date" style="display:none"></div>
+  <div id="r-identity" style="display:none"><div id="r-id-text"></div></div>
+  <div id="r-votes" style="display:none"></div>
+  <div id="r-truth" style="display:none"><div id="r-truth-text"></div></div>
 </div>
 
 <!-- ERROR -->
@@ -318,6 +315,9 @@ async function generate() {
     if (data.error) throw new Error(data.error);
 
     renderReport(data.report);
+    // Show user's email in confirmation
+    const confirmEl = document.getElementById('confirm-email');
+    if (confirmEl) confirmEl.textContent = email;
     go('report');
 
     // Send report to Make.com for email delivery
@@ -447,5 +447,14 @@ function renderReport(text) {
   }
 }
 </script>
+<footer style="padding:32px 24px 80px;text-align:center;border-top:0.5px solid rgba(184,147,90,0.12);background:#080706">
+  <p style="font-size:11px;color:rgba(107,101,96,0.5);letter-spacing:0.06em;line-height:2.2">
+    © 2025 The Mirror Test · Built on psychology. Not motivation.<br>
+    <a href="/terms.html" style="color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px">Terms & Conditions</a>·
+    <a href="/privacy.html" style="color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px">Privacy Policy</a>·
+    <a href="/refund.html" style="color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px">Refund Policy</a>·
+    <a href="/contact.html" style="color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px">Contact</a>
+  </p>
+</footer>
 </body>
 </html>
