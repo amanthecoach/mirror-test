@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — The Mirror Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080706;color:#f0ebe3;font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;padding:48px 24px}
+.wrap{max-width:680px;margin:0 auto}
+nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:48px;padding-bottom:16px;border-bottom:0.5px solid rgba(184,147,90,0.18)}
+.brand{font-family:'Cormorant Garamond',serif;font-size:15px;color:#b8935a;letter-spacing:0.08em;text-decoration:none}
+.back{font-size:12px;color:rgba(154,143,133,0.6);text-decoration:none}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,7vw,48px);font-weight:300;color:#f0ebe3;margin-bottom:8px}
+.sub{font-size:16px;line-height:1.85;color:rgba(240,235,227,0.6);margin-bottom:48px;max-width:480px}
+.channels{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
+.channel{background:rgba(184,147,90,0.05);border:0.5px solid rgba(184,147,90,0.2);padding:24px;text-align:center;text-decoration:none;display:block;transition:background 0.2s}
+.channel:hover{background:rgba(184,147,90,0.1)}
+.channel-icon{font-size:28px;margin-bottom:10px}
+.channel-label{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#b8935a;margin-bottom:6px}
+.channel-name{font-family:'Cormorant Garamond',serif;font-size:18px;color:#f0ebe3;margin-bottom:6px}
+.channel-note{font-size:12px;color:rgba(154,143,133,0.6);line-height:1.6}
+.card{background:rgba(184,147,90,0.05);border:0.5px solid rgba(184,147,90,0.2);padding:24px;margin-bottom:12px}
+.card-label{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#b8935a;margin-bottom:8px}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:#f0ebe3;margin-bottom:8px}
+.card-body{font-size:14px;line-height:1.8;color:rgba(240,235,227,0.6);margin-bottom:12px}
+.card-links{display:flex;flex-direction:column;gap:8px}
+.card-link{color:#b8935a;text-decoration:none;font-size:14px}
+.response{font-size:12px;color:rgba(154,143,133,0.45);margin-top:8px}
+.address{font-size:13px;color:rgba(154,143,133,0.45);line-height:1.8;margin-top:32px}
+.divider{height:0.5px;background:rgba(184,147,90,0.15);margin:40px 0}
+footer{margin-top:48px;padding-top:24px;border-top:0.5px solid rgba(184,147,90,0.12);text-align:center;font-size:11px;color:rgba(107,101,96,0.4);line-height:2.4}
+footer a{color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px}
+@media(max-width:480px){.channels{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a href="/" class="brand">The Mirror Test</a>
+  <a href="/" class="back">← Back</a>
+</nav>
+
+<h1>Contact</h1>
+<p class="sub">The fastest way to reach us is via WhatsApp or Instagram. We read every message personally and respond within 2 business days.</p>
+
+<!-- Primary contact channels -->
+<div class="channels">
+  <a href="https://wa.me/916359782893" class="channel" target="_blank">
+    <div class="channel-icon">💬</div>
+    <div class="channel-label">Fastest response</div>
+    <div class="channel-name">WhatsApp</div>
+    <div class="channel-note">+91 63597 82893<br>Tap to open chat</div>
+  </a>
+  <a href="https://instagram.com/project_mirrorwork" class="channel" target="_blank">
+    <div class="channel-icon">📸</div>
+    <div class="channel-label">Follow & message</div>
+    <div class="channel-name">Instagram</div>
+    <div class="channel-note">@project_mirrorwork<br>DM us anytime</div>
+  </a>
+</div>
+
+<!-- Email as third option -->
+<div class="card">
+  <div class="card-label">Email</div>
+  <div class="card-title">Write to us</div>
+  <div class="card-body">For detailed queries, refund requests, or support issues — email works best. Include your Razorpay Payment ID if your query is about a purchase.</div>
+  <div class="card-links">
+    <a href="mailto:project.mirrorwork@gmail.com" class="card-link">project.mirrorwork@gmail.com</a>
+  </div>
+  <div class="response">Response within 2 business days</div>
+</div>
+
+<!-- Support -->
+<div class="card">
+  <div class="card-label">Support</div>
+  <div class="card-title">Didn't receive your report or emails?</div>
+  <div class="card-body">If you completed payment but did not receive your Mirror Test report or Protocol welcome email, contact us immediately via WhatsApp with your Razorpay Payment ID and the email address you used at purchase.</div>
+  <div class="card-links">
+    <a href="https://wa.me/916359782893" class="card-link">WhatsApp: +91 63597 82893</a>
+    <a href="mailto:project.mirrorwork@gmail.com" class="card-link">project.mirrorwork@gmail.com</a>
+  </div>
+  <div class="response">Response within 24 hours</div>
+</div>
+
+<div class="address">
+  The Mirror Test<br>
+  402, Dhanlaxmi Building, Bavisa Faliya<br>
+  Silvassa, Dadra and Nagar Haveli – 396230<br>
+  India
+</div>
+
+<div class="divider"></div>
+
+<footer>
+  © 2025 The Mirror Test · Built on psychology. Not motivation.<br>
+  <a href="/terms.html">Terms &amp; Conditions</a> ·
+  <a href="/privacy.html">Privacy Policy</a> ·
+  <a href="/refund.html">Refund Policy</a> ·
+  <a href="/contact.html">Contact</a>
+</footer>
+
+</div>
+</body>
+</html>
