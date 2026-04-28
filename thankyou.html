@@ -8,7 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#080706;color:#f0ebe3;font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 24px}
+body{background:#080706;color:#f0ebe3;font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 24px}
 .wrap{max-width:420px;width:100%;text-align:center}
 .icon{width:80px;height:80px;border:0.5px solid rgba(184,147,90,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 32px;background:rgba(184,147,90,0.06);font-size:36px}
 .tag{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:#b8935a;margin-bottom:14px}
@@ -23,54 +24,62 @@ body{background:#080706;color:#f0ebe3;font-family:'DM Sans',sans-serif;font-weig
 .card-item:last-child{border-bottom:none}
 .dot{width:6px;height:6px;border-radius:50%;background:#b8935a;flex-shrink:0;margin-top:7px}
 .card-text{font-size:14px;line-height:1.7;color:rgba(240,235,227,0.7)}
+footer{padding:28px 24px;text-align:center;border-top:0.5px solid rgba(184,147,90,0.12);background:#080706}
+footer p{font-size:11px;color:rgba(107,101,96,0.5);letter-spacing:0.06em;line-height:2.2}
+footer a{color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="icon">✉️</div>
+<div class="main">
+  <div class="wrap">
 
-  <div class="tag">Payment confirmed</div>
+    <div class="icon">✉️</div>
 
-  <h1 class="title">Check your<br><em>inbox.</em></h1>
+    <div class="tag">Payment confirmed</div>
 
-  <div class="divider"></div>
+    <h1 class="title">Check your<br><em>inbox.</em></h1>
 
-  <p class="body">Your first Mirror Protocol email is on its way. It will arrive within the next few minutes.</p>
+    <div class="divider"></div>
 
-  <p class="body">Your 30 days begins tomorrow morning.</p>
+    <p class="body">Your first Mirror Protocol email is on its way. It will arrive within the next few minutes.</p>
 
-  <div class="card">
-    <div class="card-label">What to expect</div>
-    <div class="card-item">
-      <div class="dot"></div>
-      <div class="card-text">A welcome email arriving in your inbox shortly</div>
+    <p class="body">Your 30 days begins tomorrow morning.</p>
+
+    <div class="card">
+      <div class="card-label">What to expect</div>
+      <div class="card-item">
+        <div class="dot"></div>
+        <div class="card-text">A welcome email arriving in your inbox shortly</div>
+      </div>
+      <div class="card-item">
+        <div class="dot"></div>
+        <div class="card-text">Every morning — one question before your phone</div>
+      </div>
+      <div class="card-item">
+        <div class="dot"></div>
+        <div class="card-text">Every evening — one reflection before you sleep</div>
+      </div>
+      <div class="card-item">
+        <div class="dot"></div>
+        <div class="card-text">Your notebook and a pen — that is all you need</div>
+      </div>
     </div>
-    <div class="card-item">
-      <div class="dot"></div>
-      <div class="card-text">Every morning — one question before your phone</div>
-    </div>
-    <div class="card-item">
-      <div class="dot"></div>
-      <div class="card-text">Every evening — one reflection before you sleep</div>
-    </div>
-    <div class="card-item">
-      <div class="dot"></div>
-      <div class="card-text">Your notebook and a pen — that is all you need</div>
-    </div>
+
+    <p class="note">If you don't see the email within a few minutes,<br>check your spam folder.</p>
+
   </div>
-
-  <p class="note">If you don't see the email within a few minutes,<br>check your spam folder.</p>
-
 </div>
-<footer style="padding:32px 24px 80px;text-align:center;border-top:0.5px solid rgba(184,147,90,0.12);background:#080706">
-  <p style="font-size:11px;color:rgba(107,101,96,0.5);letter-spacing:0.06em;line-height:2.2">
+
+<footer>
+  <p>
     © 2025 The Mirror Test · Built on psychology. Not motivation.<br>
-    <a href="/terms.html" style="color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px">Terms & Conditions</a>·
-    <a href="/privacy.html" style="color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px">Privacy Policy</a>·
-    <a href="/refund.html" style="color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px">Refund Policy</a>·
-    <a href="/contact.html" style="color:rgba(184,147,90,0.5);text-decoration:none;margin:0 8px">Contact</a>
+    <a href="/terms.html">Terms & Conditions</a>·
+    <a href="/privacy.html">Privacy Policy</a>·
+    <a href="/refund.html">Refund Policy</a>·
+    <a href="/contact.html">Contact</a>
   </p>
 </footer>
+
 </body>
 </html>
