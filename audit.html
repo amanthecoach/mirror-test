@@ -258,10 +258,11 @@ function goToPayment() {
     return;
   }
   email = v;
-  // Save answers to sessionStorage so they survive the Razorpay redirect
-  sessionStorage.setItem('mt_answers', JSON.stringify(ans));
-  sessionStorage.setItem('mt_email', email);
-  sessionStorage.setItem('mt_answers_text', answersText);
+  // Save answers to localStorage so they survive the Razorpay redirect
+  localStorage.setItem('mt_answers', JSON.stringify(ans));
+  localStorage.setItem('mt_email', email);
+  localStorage.setItem('mt_answers_text', answersText);
+  localStorage.setItem('mt_timestamp', Date.now().toString());
   // Redirect to Razorpay
   window.location.href = 'https://rzp.io/rzp/IGrUpvnD';
 }
@@ -324,20 +325,23 @@ async function generate() {
 
 // Check if returning from Razorpay payment
 window.addEventListener('load', function() {
-  const savedAns = sessionStorage.getItem('mt_answers');
-  const savedEmail = sessionStorage.getItem('mt_email');
-  const savedAnswersText = sessionStorage.getItem('mt_answers_text');
-  const urlParams = new URLSearchParams(window.location.search);
-  const paymentDone = urlParams.get('payment') === 'done' || document.referrer.includes('razorpay');
+  const savedAns = localStorage.getItem('mt_answers');
+  const savedEmail = localStorage.getItem('mt_email');
+  const savedAnswersText = localStorage.getItem('mt_answers_text');
+  const savedTimestamp = localStorage.getItem('mt_timestamp');
 
-  if (savedAns && savedEmail) {
+  // Only process if answers were saved within the last 2 hours
+  const isRecent = savedTimestamp && (Date.now() - parseInt(savedTimestamp)) < 7200000;
+
+  if (savedAns && savedEmail && isRecent) {
     ans = JSON.parse(savedAns);
     email = savedEmail;
     answersText = savedAnswersText || '';
     // Clear storage
-    sessionStorage.removeItem('mt_answers');
-    sessionStorage.removeItem('mt_email');
-    sessionStorage.removeItem('mt_answers_text');
+    localStorage.removeItem('mt_answers');
+    localStorage.removeItem('mt_email');
+    localStorage.removeItem('mt_answers_text');
+    localStorage.removeItem('mt_timestamp');
     // Generate report automatically
     generate();
   }
