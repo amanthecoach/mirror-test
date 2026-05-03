@@ -21,9 +21,6 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;fo
 .rules{margin-bottom:28px}
 .rule{font-size:13px;color:rgba(240,235,227,0.45);line-height:1.7;padding:8px 0;border-bottom:0.5px solid var(--line);display:flex;gap:10px;align-items:flex-start}
 .rule::before{content:'—';color:var(--gold);flex-shrink:0;font-size:11px;margin-top:2px}
-.lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.email-input{width:100%;background:rgba(240,235,227,0.04);border:0.5px solid var(--line);color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;padding:14px;outline:none;margin-bottom:12px;-webkit-appearance:none;border-radius:0}
-.email-input:focus{border-color:rgba(184,147,90,0.5)}
 .start-btn{width:100%;background:var(--gold);color:var(--bg);padding:15px;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;-webkit-appearance:none;border-radius:0}
 .note{font-size:10px;color:rgba(107,101,96,0.5);text-align:center;margin-top:10px;line-height:1.6}
 
@@ -45,6 +42,23 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;fo
 .back-btn{background:transparent;border:0.5px solid var(--line);color:var(--muted);padding:12px 18px;font-family:'DM Sans',sans-serif;font-size:11px;cursor:pointer;letter-spacing:0.08em}
 .next-btn{flex:1;background:var(--gold);color:var(--bg);padding:12px 18px;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;-webkit-appearance:none;border-radius:0}
 
+/* PAYMENT GATE */
+#page-payment{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px var(--px)}
+#page-payment.show{display:flex}
+.pay-icon{width:72px;height:72px;border:0.5px solid rgba(184,147,90,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;background:rgba(184,147,90,0.06);font-size:32px}
+.pay-tag{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.pay-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,8vw,44px);font-weight:300;line-height:1.15;margin-bottom:16px}
+.pay-title em{color:var(--gold);font-style:italic}
+.pay-body{font-size:15px;line-height:1.85;color:rgba(240,235,227,0.65);max-width:340px;margin:0 auto 28px}
+.pay-divider{height:0.5px;background:rgba(184,147,90,0.18);width:60px;margin:0 auto 28px}
+.lbl{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;text-align:left;width:100%;max-width:340px}
+.email-input{width:100%;max-width:340px;background:rgba(240,235,227,0.04);border:0.5px solid var(--line);color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;padding:14px;outline:none;margin-bottom:12px;-webkit-appearance:none;border-radius:0}
+.email-input:focus{border-color:rgba(184,147,90,0.5)}
+.pay-price{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,14vw,64px);color:var(--gold);font-weight:300;line-height:1;margin-bottom:6px}
+.pay-price-note{font-size:12px;color:var(--muted);margin-bottom:20px}
+.pay-btn{width:100%;max-width:340px;background:var(--gold);color:var(--bg);padding:16px 20px;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;border-radius:0}
+.pay-note{font-size:11px;color:rgba(107,101,96,0.45);margin-top:12px;line-height:1.6;max-width:300px}
+
 /* LOADING */
 #page-loading{flex-direction:column;align-items:center;justify-content:center;text-align:center}
 #page-loading.show{display:flex}
@@ -61,52 +75,9 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;fo
 .stage.on::before{content:'◉'}
 .stage.done::before{content:'●'}
 
-/* REPORT */
+/* REPORT CONFIRMATION */
 #page-report{display:none;padding:0}
 #page-report.show{display:block}
-.r-nav{padding:16px var(--px);border-bottom:0.5px solid var(--line);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg);z-index:50}
-.r-brand{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--gold);letter-spacing:0.06em}
-.r-badge{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);border:0.5px solid rgba(184,147,90,0.3);padding:4px 12px;border-radius:20px}
-.r-hero{padding:36px var(--px) 28px;border-bottom:0.5px solid var(--line)}
-.r-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.r-tag::before{content:'';width:14px;height:0.5px;background:var(--gold)}
-.r-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,9vw,48px);font-weight:300;line-height:1.05;margin-bottom:8px}
-.r-title em{color:var(--gold);font-style:italic}
-.r-date{font-size:12px;color:var(--muted)}
-.r-sections{padding:0}
-.r-sec{padding:28px var(--px);border-bottom:0.5px solid var(--line)}
-.r-sec-lbl{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.r-sec-lbl::before{content:'';width:14px;height:0.5px;background:var(--gold)}
-.r-sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,6.5vw,32px);font-weight:300;color:var(--white);margin-bottom:14px;line-height:1.15}
-.r-sec-body{font-size:15px;color:rgba(240,235,227,0.72);line-height:1.9}
-.r-break{padding:26px var(--px);text-align:center;border-bottom:0.5px solid rgba(184,147,90,0.08)}
-.r-break p{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4.5vw,20px);font-weight:300;font-style:italic;line-height:1.55}
-.r-identity{margin:0;padding:32px var(--px);border-bottom:0.5px solid var(--line);background:rgba(184,147,90,0.04)}
-.r-id-lbl{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.r-id-lbl::before{content:'';width:14px;height:0.5px;background:var(--gold)}
-.r-id-text{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,26px);font-weight:300;font-style:italic;line-height:1.55;color:var(--white)}
-.r-votes{padding:28px var(--px);border-bottom:0.5px solid var(--line)}
-.r-votes-lbl{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.r-votes-lbl::before{content:'';width:14px;height:0.5px;background:var(--gold)}
-.r-vote{padding:14px 0;border-bottom:0.5px solid rgba(240,235,227,0.06);display:flex;gap:14px;align-items:flex-start}
-.r-vote:first-of-type{border-top:0.5px solid rgba(240,235,227,0.06)}
-.r-vote-n{font-family:'Cormorant Garamond',serif;font-size:28px;color:rgba(184,147,90,0.25);font-weight:300;flex-shrink:0;line-height:1;margin-top:2px}
-.r-vote-t{font-size:14px;color:rgba(240,235,227,0.7);line-height:1.8}
-.r-truth{padding:32px var(--px);background:#080706;border-top:2px solid var(--gold);border-bottom:0.5px solid var(--line)}
-.r-truth-lbl{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.r-truth-lbl::before{content:'';width:14px;height:0.5px;background:var(--gold)}
-.r-truth-text{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5.5vw,26px);font-weight:300;font-style:italic;line-height:1.6;color:var(--white)}
-.upsell{padding:36px var(--px) 44px}
-.up-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.up-tag::before{content:'';width:14px;height:0.5px;background:var(--gold)}
-.up-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,8vw,40px);font-weight:300;margin-bottom:14px;line-height:1.15;color:var(--white)}
-.up-title em{color:var(--gold);font-style:italic}
-.up-body{font-size:15px;color:rgba(240,235,227,0.6);line-height:1.85;margin-bottom:20px}
-.up-price{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,14vw,72px);color:var(--gold);font-weight:300;line-height:1;margin-bottom:6px}
-.up-price-note{font-size:12px;color:var(--muted);margin-bottom:20px}
-.up-btn{width:100%;background:var(--gold);color:var(--bg);padding:16px 20px;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:space-between;border-radius:0}
-.up-final{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,4.5vw,22px);font-style:italic;color:rgba(240,235,227,0.38);text-align:center;margin-top:22px;line-height:1.5}
-.up-final em{color:var(--gold)}
 
 /* ERROR */
 #page-error{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center}
@@ -122,17 +93,15 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;fo
 <div class="page show" id="page-welcome">
   <div class="w-logo">The Mirror Test</div>
   <h1 class="w-h1">The next 15 minutes will show you <em>who you actually are.</em></h1>
-  <p class="w-sub">Answer 12 questions honestly. You will receive a personal psychological report built entirely from your answers.</p>
+  <p class="w-sub">Answer 12 questions honestly. Your personal psychological report will be generated from your answers.</p>
   <div class="rules">
     <div class="rule">There are no right or wrong answers. Only honest ones.</div>
     <div class="rule">The more honest you are, the more accurate your report.</div>
     <div class="rule">Your answers are private and used only to generate your report.</div>
     <div class="rule">Take your time. This is not a quiz.</div>
   </div>
-  <div class="lbl">Your email — to receive your report</div>
-  <input class="email-input" type="email" id="email" placeholder="yourname@email.com">
   <button class="start-btn" onclick="startTest()">Begin The Mirror Test <span>→</span></button>
-  <p class="note">Your report will be shown on screen immediately and also sent to your email.</p>
+  <p class="note">Answer all 12 questions. Your report is unlocked at the end.</p>
 </div>
 
 <!-- QUESTION -->
@@ -153,6 +122,21 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;fo
   </div>
 </div>
 
+<!-- PAYMENT GATE — shown after question 12 -->
+<div class="page" id="page-payment">
+  <div class="pay-icon">🪞</div>
+  <div class="pay-tag">Your report is ready to generate</div>
+  <h1 class="pay-title">You have done<br>the honest work.<br><em>Unlock your report.</em></h1>
+  <p class="pay-body">Your answers have been recorded. Your personal psychological report — built entirely from what you just wrote — is one step away.</p>
+  <div class="pay-divider"></div>
+  <div class="lbl">Your email — to receive your report</div>
+  <input class="email-input" type="email" id="email" placeholder="yourname@email.com">
+  <div class="pay-price">₹299</div>
+  <div class="pay-price-note">One time · Instant delivery · Personal report</div>
+  <button class="pay-btn" onclick="goToPayment()">Unlock My Report <span>→</span></button>
+  <p class="pay-note">Your report will be sent to your email immediately after payment. Your answers are never stored or shared.</p>
+</div>
+
 <!-- LOADING -->
 <div class="page" id="page-loading">
   <div class="spinner"></div>
@@ -168,31 +152,18 @@ body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;fo
   </div>
 </div>
 
-<!-- REPORT CONFIRMATION — email delivery -->
+<!-- REPORT CONFIRMATION -->
 <div id="page-report" style="display:none">
   <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;background:var(--bg)">
-
-    <!-- envelope icon -->
-    <div style="width:72px;height:72px;border:0.5px solid rgba(184,147,90,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:28px;background:rgba(184,147,90,0.06)">
-      <div style="font-size:32px">✉️</div>
-    </div>
-
+    <div style="width:72px;height:72px;border:0.5px solid rgba(184,147,90,0.35);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:28px;background:rgba(184,147,90,0.06);font-size:32px">✉️</div>
     <div style="font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#b8935a;margin-bottom:14px">Your report is ready</div>
-
     <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,8vw,48px);font-weight:300;color:#f0ebe3;line-height:1.15;margin-bottom:16px">Check your<br><em style="color:#b8935a">inbox.</em></h1>
-
     <p style="font-size:16px;line-height:1.85;color:rgba(240,235,227,0.65);max-width:340px;margin-bottom:10px">Your personal Mirror Test report has been sent to your email address.</p>
-
     <p id="confirm-email" style="font-size:14px;color:#b8935a;font-style:italic;margin-bottom:32px"></p>
-
     <div style="height:0.5px;background:rgba(184,147,90,0.18);width:60px;margin:0 auto 32px"></div>
-
-    <p style="font-size:14px;line-height:1.8;color:rgba(240,235,227,0.45);max-width:300px;margin-bottom:48px">The report contains your pattern, your root cause, your identity statement, and your three daily identity votes. Read it slowly. Read it more than once.</p>
-
-    <p style="font-size:13px;line-height:1.8;color:rgba(240,235,227,0.35);max-width:300px;font-style:italic">If you don't see it within a few minutes,<br>check your spam folder.</p>
-
+    <p style="font-size:14px;line-height:1.8;color:rgba(240,235,227,0.45);max-width:300px;margin-bottom:16px">The report contains your pattern, your root cause, your identity statement, and your three daily identity votes. Read it slowly. Read it more than once.</p>
+    <p style="font-size:13px;line-height:1.8;color:rgba(240,235,227,0.35);max-width:300px;font-style:italic">If you don't see it within a few minutes, check your spam folder.</p>
   </div>
-  <!-- hidden elements still needed for report generation logic -->
   <div id="r-sections" style="display:none"></div>
   <div id="r-date" style="display:none"></div>
   <div id="r-identity" style="display:none"><div id="r-id-text"></div></div>
@@ -227,6 +198,7 @@ let cur = 0;
 let ans = new Array(12).fill('');
 let email = '';
 let stTimer = null;
+let answersText = '';
 
 function go(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('show'));
@@ -234,18 +206,13 @@ function go(id) {
   if (id === 'report') {
     document.getElementById('page-report').style.display = 'block';
   } else {
-    document.getElementById('page-' + id).classList.add('show');
+    const el = document.getElementById('page-' + id);
+    if (el) el.classList.add('show');
   }
   window.scrollTo(0, 0);
 }
 
 function startTest() {
-  const v = document.getElementById('email').value.trim();
-  if (!v || !v.includes('@')) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-  email = v;
   cur = 0;
   loadQ();
   go('question');
@@ -261,7 +228,7 @@ function loadQ() {
   document.getElementById('q-count').textContent = (cur + 1) + ' of 12';
   document.getElementById('q-prog').style.width = ((cur + 1) / 12 * 100) + '%';
   document.getElementById('back-btn').style.visibility = cur === 0 ? 'hidden' : 'visible';
-  document.getElementById('next-btn').innerHTML = cur === 11 ? 'Generate My Report <span>→</span>' : 'Next <span>→</span>';
+  document.getElementById('next-btn').innerHTML = cur === 11 ? 'See My Results <span>→</span>' : 'Next <span>→</span>';
 }
 
 function nextQ() {
@@ -271,13 +238,32 @@ function nextQ() {
     loadQ();
     window.scrollTo(0, 0);
   } else {
-    generate();
+    // All 12 answered — show payment gate
+    answersText = QS.map((q, i) =>
+      'Q' + (i+1) + ' [' + q.p + ']: ' + q.t + '\nAnswer: ' + (ans[i] || '(skipped)')
+    ).join('\n\n');
+    go('payment');
   }
 }
 
 function prevQ() {
   ans[cur] = document.getElementById('q-ans').value.trim();
   if (cur > 0) { cur--; loadQ(); window.scrollTo(0, 0); }
+}
+
+function goToPayment() {
+  const v = document.getElementById('email').value.trim();
+  if (!v || !v.includes('@')) {
+    alert('Please enter a valid email address to receive your report.');
+    return;
+  }
+  email = v;
+  // Save answers to sessionStorage so they survive the Razorpay redirect
+  sessionStorage.setItem('mt_answers', JSON.stringify(ans));
+  sessionStorage.setItem('mt_email', email);
+  sessionStorage.setItem('mt_answers_text', answersText);
+  // Redirect to Razorpay
+  window.location.href = 'https://rzp.io/rzp/IGrUpvnD';
 }
 
 function startStages() {
@@ -297,10 +283,6 @@ async function generate() {
   go('loading');
   startStages();
 
-  const answersText = QS.map((q, i) =>
-    'Q' + (i+1) + ' [' + q.p + ']: ' + q.t + '\nAnswer: ' + (ans[i] || '(skipped)')
-  ).join('\n\n');
-
   try {
     const res = await fetch('/.netlify/functions/generate-report', {
       method: 'POST',
@@ -315,7 +297,6 @@ async function generate() {
     if (data.error) throw new Error(data.error);
 
     renderReport(data.report);
-    // Show user's email in confirmation
     const confirmEl = document.getElementById('confirm-email');
     if (confirmEl) confirmEl.textContent = email;
     go('report');
@@ -343,9 +324,29 @@ async function generate() {
   }
 }
 
+// Check if returning from Razorpay payment
+window.addEventListener('load', function() {
+  const savedAns = sessionStorage.getItem('mt_answers');
+  const savedEmail = sessionStorage.getItem('mt_email');
+  const savedAnswersText = sessionStorage.getItem('mt_answers_text');
+  const urlParams = new URLSearchParams(window.location.search);
+  const paymentDone = urlParams.get('payment') === 'done' || document.referrer.includes('razorpay');
+
+  if (savedAns && savedEmail) {
+    ans = JSON.parse(savedAns);
+    email = savedEmail;
+    answersText = savedAnswersText || '';
+    // Clear storage
+    sessionStorage.removeItem('mt_answers');
+    sessionStorage.removeItem('mt_email');
+    sessionStorage.removeItem('mt_answers_text');
+    // Generate report automatically
+    generate();
+  }
+});
+
 function extract(text, key) {
   const keys = ['THE MIRROR','THE WOUND','THE HIDDEN FEAR','WHAT YOUR ENVIRONMENT DID','YOUR IDENTITY STATEMENT','3 DAILY IDENTITY VOTES','THE ONE TRUTH'];
-  // Handle plain "KEY:" and markdown "**KEY:**" and "## KEY:" formats
   const patterns = [key + ':', '**' + key + ':**', '**' + key + '**:', '## ' + key + ':'];
   let idx = -1;
   let matchedPattern = key + ':';
@@ -424,7 +425,6 @@ function renderReport(text) {
     document.getElementById('r-truth').style.display = 'block';
   }
 
-  // Cream break before identity statement
   const identityEl = document.getElementById('r-identity');
   if (identityEl && identityEl.style.display !== 'none') {
     const breakEl = document.createElement('div');
@@ -435,7 +435,6 @@ function renderReport(text) {
     identityEl.parentNode.insertBefore(breakEl, identityEl);
   }
 
-  // Parchment break before one truth
   const truthEl = document.getElementById('r-truth');
   if (truthEl && truthEl.style.display !== 'none') {
     const breakEl2 = document.createElement('div');
