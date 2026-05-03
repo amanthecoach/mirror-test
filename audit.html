@@ -258,11 +258,10 @@ function goToPayment() {
     return;
   }
   email = v;
-  // Save answers to localStorage so they survive the Razorpay redirect
-  localStorage.setItem('mt_answers', JSON.stringify(ans));
-  localStorage.setItem('mt_email', email);
-  localStorage.setItem('mt_answers_text', answersText);
-  localStorage.setItem('mt_timestamp', Date.now().toString());
+  // Save answers to sessionStorage so they survive the Razorpay redirect
+  sessionStorage.setItem('mt_answers', JSON.stringify(ans));
+  sessionStorage.setItem('mt_email', email);
+  sessionStorage.setItem('mt_answers_text', answersText);
   // Redirect to Razorpay
   window.location.href = 'https://rzp.io/rzp/IGrUpvnD';
 }
@@ -297,6 +296,11 @@ async function generate() {
     const data = await res.json();
     if (data.error) throw new Error(data.error);
 
+    renderReport(data.report);
+    const confirmEl = document.getElementById('confirm-email');
+    if (confirmEl) confirmEl.textContent = email;
+    go('report');
+
     // Send report to Make.com for email delivery
     try {
       await fetch('https://hook.eu1.make.com/722wpmjca13u732xzy8ewyovnpcvqp16', {
@@ -313,9 +317,6 @@ async function generate() {
       console.log('Webhook error:', webhookErr);
     }
 
-    // Redirect to thank you page
-    window.location.href = 'https://projectmirror.online/thankyou.html';
-
   } catch(e) {
     clearInterval(stTimer);
     document.getElementById('err-body').textContent = 'Error: ' + e.message + '. Please try again.';
@@ -325,23 +326,20 @@ async function generate() {
 
 // Check if returning from Razorpay payment
 window.addEventListener('load', function() {
-  const savedAns = localStorage.getItem('mt_answers');
-  const savedEmail = localStorage.getItem('mt_email');
-  const savedAnswersText = localStorage.getItem('mt_answers_text');
-  const savedTimestamp = localStorage.getItem('mt_timestamp');
+  const savedAns = sessionStorage.getItem('mt_answers');
+  const savedEmail = sessionStorage.getItem('mt_email');
+  const savedAnswersText = sessionStorage.getItem('mt_answers_text');
+  const urlParams = new URLSearchParams(window.location.search);
+  const paymentDone = urlParams.get('payment') === 'done' || document.referrer.includes('razorpay');
 
-  // Only process if answers were saved within the last 2 hours
-  const isRecent = savedTimestamp && (Date.now() - parseInt(savedTimestamp)) < 7200000;
-
-  if (savedAns && savedEmail && isRecent) {
+  if (savedAns && savedEmail) {
     ans = JSON.parse(savedAns);
     email = savedEmail;
     answersText = savedAnswersText || '';
     // Clear storage
-    localStorage.removeItem('mt_answers');
-    localStorage.removeItem('mt_email');
-    localStorage.removeItem('mt_answers_text');
-    localStorage.removeItem('mt_timestamp');
+    sessionStorage.removeItem('mt_answers');
+    sessionStorage.removeItem('mt_email');
+    sessionStorage.removeItem('mt_answers_text');
     // Generate report automatically
     generate();
   }
