@@ -296,11 +296,6 @@ async function generate() {
     const data = await res.json();
     if (data.error) throw new Error(data.error);
 
-    renderReport(data.report);
-    const confirmEl = document.getElementById('confirm-email');
-    if (confirmEl) confirmEl.textContent = email;
-    go('report');
-
     // Send report to Make.com for email delivery
     try {
       await fetch('https://hook.eu1.make.com/722wpmjca13u732xzy8ewyovnpcvqp16', {
@@ -316,6 +311,9 @@ async function generate() {
     } catch(webhookErr) {
       console.log('Webhook error:', webhookErr);
     }
+
+    // Redirect to thank you page
+    window.location.href = 'https://projectmirror.online/thankyou.html';
 
   } catch(e) {
     clearInterval(stTimer);
