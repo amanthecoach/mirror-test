@@ -45,18 +45,17 @@ THE ONE TRUTH:
 
 Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
 
-    // Clean native fetch request structured specifically for Anthropic security verification
-    const response = await fetch('https://anthropic.com', {
+    // Using OpenRouter as an unblocked routing proxy endpoint
+    const response = await fetch('https://openrouter.ai', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'User-Agent': 'NetlifyServerlessFunction/1.0' // Prevents Anthropic from routing to marketing HTML
+        'HTTP-Referer': 'https://netlify.com', 
+        'X-Title': 'Psychological Report Generator'
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-latest',
-        max_tokens: 2000,
+        model: 'anthropic/claude-3.5-sonnet',
         messages: [{ role: 'user', content: prompt }]
       })
     });
@@ -64,32 +63,23 @@ Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
     const responseText = await response.text();
 
     if (!response.ok) {
-      console.error(`🔴 ANTHROPIC API REJECTION [Status ${response.status}]:`, responseText);
+      console.error(`🔴 API CONNECTOR ERROR [Status ${response.status}]:`, responseText);
       return {
         statusCode: 500,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'API error ' + response.status + ': ' + responseText.substring(0, 200) })
-      };
-    }
-
-    if (responseText.trim().startsWith('<!DOCTYPE') || responseText.trim().startsWith('<html')) {
-      console.error('🔴 REDIRECTION DETECTED: Still received HTML page:', responseText.substring(0, 500));
-      return {
-        statusCode: 500,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'System redirected to HTML landing page.' })
+        body: JSON.stringify({ error: 'Endpoint Error ' + response.status + ': ' + responseText.substring(0, 200) })
       };
     }
 
     const data = JSON.parse(responseText);
     
-    // Explicit array element extraction layout matching the schema
-    if (!data.content || !data.content[0] || !data.content[0].text) {
-      console.error('🔴 SCHEMATIC PAYLOAD ERROR: Formatting mismatch:', JSON.stringify(data));
+    // Fixed: Correctly checking OpenRouter's nested text data path array format
+    if (!data.choices || data.choices.length === 0 || !data.choices[0].message || !data.choices[0].message.content) {
+      console.error('🔴 DATA SCHEMA ERROR: Unexpected response format:', JSON.stringify(data));
       throw new Error('Unexpected JSON schema return layout.');
     }
 
-    const reportText = data.content[0].text.replace(/\*\*/g, '').replace(/\*/g, '');
+    const reportText = data.choices[0].message.content.replace(/\*\*/g, '').replace(/\*/g, '');
 
     return {
       statusCode: 200,
