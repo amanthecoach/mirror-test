@@ -8,17 +8,13 @@ exports.handler = async function(event, context) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
 
     if (!apiKey) {
-      console.error('🔴 CONFIGURATION ERROR: ANTHROPIC_API_KEY variable is missing in the Netlify Dashboard.');
+      console.error('🔴 CONFIGURATION ERROR: ANTHROPIC_API_KEY variable is missing in Netlify.');
       return {
         statusCode: 500,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ error: 'No API key found' })
       };
     }
-
-    // Direct Browser-Import bypass for Chromebooks
-    const { Anthropic } = await import('https://unpkg.com');
-    const anthropic = new Anthropic({ apiKey });
 
     const prompt = `Write a personal psychological fitness report. Use only "you/your", never assume gender. Plain text only, no asterisks.
 
@@ -49,13 +45,51 @@ THE ONE TRUTH:
 
 Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
 
-    const msg = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-latest',
-      max_tokens: 2000,
-      messages: [{ role: 'user', content: prompt }]
+    // Clean native fetch request structured specifically for Anthropic security verification
+    const response = await fetch('https://anthropic.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'User-Agent': 'NetlifyServerlessFunction/1.0' // Prevents Anthropic from routing to marketing HTML
+      },
+      body: JSON.stringify({
+        model: 'claude-3-5-sonnet-latest',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: prompt }]
+      })
     });
 
-    const reportText = msg.content[0].text.replace(/\*\*/g, '').replace(/\*/g, '');
+    const responseText = await response.text();
+
+    if (!response.ok) {
+      console.error(`🔴 ANTHROPIC API REJECTION [Status ${response.status}]:`, responseText);
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'API error ' + response.status + ': ' + responseText.substring(0, 200) })
+      };
+    }
+
+    if (responseText.trim().startsWith('<!DOCTYPE') || responseText.trim().startsWith('<html')) {
+      console.error('🔴 REDIRECTION DETECTED: Still received HTML page:', responseText.substring(0, 500));
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'System redirected to HTML landing page.' })
+      };
+    }
+
+    const data = JSON.parse(responseText);
+    
+    // Explicit array element extraction layout matching the schema
+    if (!data.content || !data.content[0] || !data.content[0].text) {
+      console.error('🔴 SCHEMATIC PAYLOAD ERROR: Formatting mismatch:', JSON.stringify(data));
+      throw new Error('Unexpected JSON schema return layout.');
+    }
+
+    const reportText = data.content[0].text.replace(/\*\*/g, '').replace(/\*/g, '');
 
     return {
       statusCode: 200,
