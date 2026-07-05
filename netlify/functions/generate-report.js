@@ -1,4 +1,5 @@
 exports.handler = async function(event, context) {
+  // Reject anything that isn't a POST request
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
@@ -7,7 +8,9 @@ exports.handler = async function(event, context) {
     const { answers } = JSON.parse(event.body);
     const apiKey = process.env.ANTHROPIC_API_KEY;
 
+    // Check if the Netlify environment variable is missing
     if (!apiKey) {
+      console.error('🔴 CONFIGURATION ERROR: ANTHROPIC_API_KEY environment variable is completely missing or blank in the Netlify Dashboard.');
       return {
         statusCode: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -44,7 +47,8 @@ THE ONE TRUTH:
 
 Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    // Using the official, active Claude 3.5 Sonnet API string
+    const response = await fetch('https://anthropic.com', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +56,7 @@ Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-3-5-sonnet-latest',
         max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }]
       })
@@ -60,7 +64,9 @@ Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
 
     const responseText = await response.text();
 
+    // Catch Anthropic specific errors (such as 400 Bad Request or 401 Unauthorized)
     if (!response.ok) {
+      console.error(`🔴 ANTHROPIC API ERROR [Status ${response.status}]:`, responseText);
       return {
         statusCode: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -69,6 +75,13 @@ Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
     }
 
     const data = JSON.parse(responseText);
+    
+    // Safely extract text from the standard messages response body structure
+    if (!data.content || !data.content[0] || !data.content[0].text) {
+      console.error('🔴 RESPONSE STRUCTURING ERROR: Received unreadable format from Anthropic:', JSON.stringify(data));
+      throw new Error('Unexpected Anthropic API response format structure.');
+    }
+
     const reportText = data.content[0].text.replace(/\*\*/g, '').replace(/\*/g, '');
 
     return {
@@ -78,6 +91,8 @@ Answers: ${answers.map((a,i) => `Q${i+1}: ${a}`).join(' | ')}`;
     };
 
   } catch (err) {
+    // Catch global crashes like a JSON parsing failure or structural network drop-outs
+    console.error('🔴 EXCEPTION CAUGHT IN NETLIFY HANDLER:', err.stack || err.message || err);
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json' },
